@@ -2,15 +2,15 @@ const validationTweetStructure = (content) => {
   let validation = true;
   let message = "";
 
-  if (!content.trim() || content.trim().length < 10) {
+  if (!content.trim() || content.trim().length < 1) {
     validation = false;
     message = "[ERROR] The tweet content is empty";
     return { validation, message };
   }
 
-  if (content.length < 10 || content.length > 280) {
+  if (content.length < 1 || content.length > 280) {
     validation = false;
-    message = "[ERROR] The tweet content must be between 10 and 280 characters";
+    message = "[ERROR] The tweet content must be between 1 and 280 characters";
   }
 
   return { validation, message };

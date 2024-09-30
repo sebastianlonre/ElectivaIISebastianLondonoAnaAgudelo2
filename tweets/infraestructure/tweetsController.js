@@ -1,4 +1,3 @@
-const Tweet = require("../adapters/tweetsModel");
 const { newTweets } = require("../aplication/newTweet");
 
 const newTweet = async (request, response) => {
