@@ -20,10 +20,12 @@ const registerUser = async (userData) => {
       return { message_error: "[ERROR] the user already exists" };
     }
 
+    const newUserTag = "@"+userTag;
+
     user = new User({
       userName,
       userLastName,
-      userTag,
+      userTag: newUserTag,
       email,
       password
     })
