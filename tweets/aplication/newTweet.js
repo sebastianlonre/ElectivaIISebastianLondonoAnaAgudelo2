@@ -1,11 +1,12 @@
-const User = require('../../users/adapters/userModel');
-const Tweet = require('../adapters/tweetsModel');
+const User = require('../../users/domain/userModel');
+const Tweet = require('../domain/tweetsModel');
 const { validationTweetStructure } = require('../domain/tweetsValidators');
 
 const newTweets = async (tweetData) => {
   const { userName, userTag, content } = tweetData;
 
   const { validation, menssage } = validationTweetStructure(content);
+
   if (!validation) {
     return { menssage_error: "[ERROR] " + menssage };
   }
