@@ -5,28 +5,18 @@ const { validationTweetStructure } = require('../domain/tweetsValidators');
 const newTweets = async (tweetData) => {
   const { userName, userTag, content } = tweetData;
 
-  const { validation, menssage } = validationTweetStructure(content);
+  const { validation, message } = validationTweetStructure(content);
 
   if (!validation) {
-    return { menssage_error: "[ERROR] " + menssage };
+    return { menssage_error: message };
   }
 
   try {
-    //solo esta para probar, se debe cambiar cuando creemos usuarios
     let user = await User.findOne({ userTag });
 
     if (!user) {
-      user = new User({
-        userName,
-        userLastName: "Default",
-        userTag,
-        email: "default@example.com",
-        password: "123456"
-      });
-      await user.save();
+      return { menssage_error: "[ERROR] Failed to create tweet in database"};
     }
-
-    //
 
     const newTweet = new Tweet({
       userName,
