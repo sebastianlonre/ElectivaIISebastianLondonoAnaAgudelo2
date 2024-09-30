@@ -7,13 +7,13 @@ const registerUserItem = async (request, response) =>{
 
   try {
     const result = await registerUser(userData);
-    if (result.menssage_error) {
+    if (result.message_error) {
       return response.status(400).json(result);
     }
 
     return response.status(201).json(result);
   } catch (error) {
-    return response.status(500).json({ menssage_error: "[ERROR] Unexpected server error"+ error });
+    return response.status(500).json({ message_error: "[ERROR] Unexpected server error"+ error });
   }
 
 }

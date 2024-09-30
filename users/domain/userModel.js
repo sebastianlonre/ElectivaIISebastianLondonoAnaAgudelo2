@@ -5,7 +5,7 @@ const userSchema = new mongoose.Schema({
   userLastName: { type: String, required: true },
   userTag: { type: String, required: true },
   email: { type: String, required: true },
-  password: { type: Number, default: 0 },
+  password: { type: String, default: 0 },
   createTweetAt: { type: Date, default: Date.now },
   tweets: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Tweet' }]
 });

@@ -1,29 +1,40 @@
-const { emailValidator } = require("../domain/emailValidator");
-const { passwordValidator } = require("../domain/passwordValidator");
-const { registerValidator } = require("../domain/registerValidator");
+const User = require("../../users/domain/userModel");
+const { validateDataForRegister } = require("./validateDataForRegister");
 
 
 const registerUser = async (userData) => {
 
-  const { email, password } = userData;
+  const { userName, userLastName, userTag, email, password } = userData;
 
-  const { passwordValidation, passwordMessage } = passwordValidator(password);
-  const { registerValidation, registerMessage } = registerValidator(userData);
-  const { emailValidation, emailMessage } = emailValidator(email);
+  const validationResult = validateDataForRegister(userData);
 
-  if (!passwordValidation) {
-    return { menssage_error: passwordMessage};
-  };
+  if (validationResult) {
+    return { message_error: validationResult.menssage_error };
+  }
 
-  if (!registerValidation) {
-    return { menssage_error: registerMessage};
-  };
+  try {
 
-  if (! emailValidation) {
-    return { menssage_error: emailMessage};
-  };
+    let user = await User.findOne({ userTag });
 
-  return { message: "User registered successfully" };
+    if (user) {
+      return { message_error: "[ERROR] the user already exists" };
+    }
+
+    user = new User({
+      userName,
+      userLastName,
+      userTag,
+      email,
+      password
+    })
+
+    await user.save();
+
+    return { message: "[INFO] User registered successfully" };
+
+  } catch (error) {
+    return { message_error: "[ERROR] to register user: " + error };
+  }
 };
 
 module.exports = registerUser;
