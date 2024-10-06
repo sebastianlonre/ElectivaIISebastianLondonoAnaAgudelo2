@@ -7,7 +7,9 @@ const userSchema = new mongoose.Schema({
   email: { type: String, required: true },
   password: { type: String, default: 0 },
   createTweetAt: { type: Date, default: Date.now },
-  tweets: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Tweet' }]
+  tweets: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Tweet' }],
+  followers: [{type: mongoose.Schema.Types.ObjectId, ref: 'Followers'}],
+  followings: [{type: mongoose.Schema.Types.ObjectId, ref: 'followings'}]
 });
 
 const User = mongoose.model('User', userSchema);

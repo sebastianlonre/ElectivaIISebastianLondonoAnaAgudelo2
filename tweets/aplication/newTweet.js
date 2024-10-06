@@ -1,4 +1,4 @@
-const User = require('../../users/domain/userModel');
+const findUser = require('../../users/infraestructure/userAdapters');
 const Tweet = require('../domain/tweetsModel');
 const { validationTweetStructure } = require('../domain/tweetsValidators');
 
@@ -12,10 +12,10 @@ const newTweets = async (tweetData) => {
   }
 
   try {
-    let user = await User.findOne({ userTag });
+    let { message_error, user } = await findUser(userTag);
 
-    if (!user) {
-      return { menssage_error: "[ERROR] Failed to create tweet in database"};
+    if (message_error) {
+      return { menssage_error: message_error };
     }
 
     const newTweet = new Tweet({
