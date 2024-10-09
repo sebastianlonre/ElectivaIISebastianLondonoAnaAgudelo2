@@ -13,8 +13,9 @@ const listTweetsInFeed = async ( userTag ) => {
 
   try {
 
-    let user = await User.findOne({ userTag });
     let userActiveTweets = await listTweetsByID(userTag);
+
+
 
 
     return { message: "Tweets retrieved successfully", userActiveTweets};

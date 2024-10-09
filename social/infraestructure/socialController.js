@@ -1,5 +1,5 @@
 const { followUser } = require("../aplication/followUser");
-const { unFollowUser } = require("../aplication/unFollowUser"); // Asegúrate de que esta ruta sea correcta
+const { unFollowUser } = require("../aplication/unFollowUser");
 
 const followUsers = async (request, response) => {
   const { userTag, userToFollowTag } = request.body;
@@ -35,5 +35,5 @@ const unfollowUsers = async (request, response) => {
 
 module.exports = {
   followUsers,
-  unfollowUsers // Exportar el nuevo manejador
+  unfollowUsers
 }

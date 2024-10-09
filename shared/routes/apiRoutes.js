@@ -4,6 +4,7 @@ const { newTweet, listTweetsByIDs, listTweetsInFeeds } = require("../../tweets/i
 const { registerUserItem } = require("../../auth/infraestructure/authController");
 const { followUsers } = require("../../social/infraestructure/socialController");
 const { unfollowUsers } = require("../../social/infraestructure/socialController");
+const { findUsersByTag, getFollowers } = require("../../users/infraestructure/userController");
 
 //tweets
 router.post("/tweets", newTweet);
@@ -16,5 +17,9 @@ router.post("/auth/register", registerUserItem);
 //social
 router.put("/social/follow", followUsers)
 router.delete("/social/unfollow", unfollowUsers)
+
+//user
+router.get("/:userTag", findUsersByTag)
+router.get("/:userTag/followers", getFollowers)
 
 module.exports = router;
