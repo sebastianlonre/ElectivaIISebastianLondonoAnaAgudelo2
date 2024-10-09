@@ -14,4 +14,8 @@ const findUser = async ( userTag ) => {
   }
 }
 
+const getFollowers = async ( userTag ) => {
+
+}
+
 module.exports = findUser;
