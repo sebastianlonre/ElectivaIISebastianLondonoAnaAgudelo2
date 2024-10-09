@@ -1,10 +1,10 @@
-const findUser = require("../infraestructure/userAdapters")
+const { findUserByTag } = require("./findUserByTag");
 
 const getFollowingsByTag = async (userTag) => {
 
   try {
 
-    let user = await findUser(userTag);
+    let user = await findUserByTag(userTag);
 
     if (user.message_error) {
       return { menssage_error: user.message_error }
@@ -16,7 +16,7 @@ const getFollowingsByTag = async (userTag) => {
       return { menssage_error: "No followings found for this user" };
     }
 
-    return { menssage: "followings retrived succesfull", followings };
+    return { followings };
 
 
   } catch (error) {
