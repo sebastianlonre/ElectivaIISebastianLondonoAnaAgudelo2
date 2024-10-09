@@ -1,5 +1,6 @@
 const { findUserByTag } = require("../aplication/findUserByTag");
 const { getFollowerByTag } = require("../aplication/getFollowerByTag");
+const { getFollowingsByTag } = require("../aplication/getFollowingsByTag");
 
 const findUsersByTag = async (request, response) => {
 
@@ -23,7 +24,7 @@ const findUsersByTag = async (request, response) => {
 
 const getFollowers = async (request, response) => {
 
-  const { userTag } = request.body;
+  const { userTag } = request.params;
 
   try {
 
@@ -41,8 +42,30 @@ const getFollowers = async (request, response) => {
 
 }
 
+const getFollwings = async (request, response) => {
+
+  const { userTag } = request.params;
+
+
+  try {
+
+    const resultFollowings = await getFollowingsByTag(userTag);
+
+    if (resultFollowings.menssage_error) {
+      return response.status(400).json(resultFollowings);
+    }
+
+    return response.status(200).json(resultFollowings);
+
+  } catch (error) {
+    return response.status(500).json({ menssage_error: "[ERROR] Unexpected server error: " + error });
+  }
+
+}
+
 
 module.exports = {
   findUsersByTag,
-  getFollowers
+  getFollowers,
+  getFollwings
 }

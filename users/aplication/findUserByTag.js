@@ -9,6 +9,7 @@ const findUserByTag = async (userTag) => {
   }
 
   try {
+
     let user = await User.findOne({ userTag });
 
     if (!user) {

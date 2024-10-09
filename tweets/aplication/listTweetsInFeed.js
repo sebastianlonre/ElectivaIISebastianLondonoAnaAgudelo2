@@ -1,12 +1,12 @@
-const User = require('../../users/domain/userModel');
+const { getFollowings } = require('../../users/infraestructure/userAdapters');
 const Tweet = require('../domain/tweetsModel');
 const { listTweetsByID } = require('./listTweetsByID');
 
-const listTweetsInFeed = async ( userTag ) => {
+const listTweetsInFeed = async (userTag) => {
 
   let tweetsInFeed;
 
-  if(!userTag){
+  if (!userTag) {
     tweetsInFeed = await Tweet.find().sort({ createTweetAt: -1 });
     return { message: "Tweet return successfully for not user login", tweetsInFeed };
   }
@@ -15,12 +15,17 @@ const listTweetsInFeed = async ( userTag ) => {
 
     let userActiveTweets = await listTweetsByID(userTag);
 
+    if (userActiveTweets.menssage_error) {
+      return { menssage_error: userActiveTweets.menssage_error }
+    }
 
+    let followings = await getFollowings(userTag);
 
+    console.log(followings);
 
-    return { message: "Tweets retrieved successfully", userActiveTweets};
+    return { message: "Tweets retrieved successfully", userActiveTweets };
   } catch (error) {
-    return { message_error: "Failed to search tweets", error };
+    return { menssage_error: "Failed to search tweets" + error };
   }
 }
 

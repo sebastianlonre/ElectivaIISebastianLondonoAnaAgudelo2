@@ -1,6 +1,5 @@
-const User = require('../../users/domain/userModel');
 const Tweet = require('../domain/tweetsModel');
-const findUser = require('../../users/infraestructure/userAdapters');
+
 
 const listTweetsByID = async (userTag) => {
 
@@ -20,7 +19,7 @@ const listTweetsByID = async (userTag) => {
 
     return { message: "Tweets retrieved successfully", tweets };
   } catch (error) {
-    return { message_error: "Failed to list tweets of the user", error };
+    return { message_error: "Failed to list tweets of the user"+ error };
   }
 };
 
