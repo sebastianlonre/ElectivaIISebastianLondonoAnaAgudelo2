@@ -1,4 +1,3 @@
-// socialModel.js
 const mongoose = require('mongoose');
 
 const followerSchema = new mongoose.Schema({

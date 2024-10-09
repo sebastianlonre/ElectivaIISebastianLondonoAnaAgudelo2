@@ -16,6 +16,7 @@ const findUserByTag = async (userTag) => {
         message_error: "User not found"
       };
     }
+    console.log(user.userTag, user.userLastName)
 
     return {
       message: "User return succesful",
