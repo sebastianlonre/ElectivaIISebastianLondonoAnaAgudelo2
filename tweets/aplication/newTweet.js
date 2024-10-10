@@ -1,4 +1,4 @@
-const findUser = require('../../users/infraestructure/userAdapters');
+const {findUser} = require('../../users/infraestructure/userAdapters');
 const Tweet = require('../domain/tweetsModel');
 const { validationTweetStructure } = require('../domain/tweetsValidators');
 
@@ -31,7 +31,7 @@ const newTweets = async (tweetData) => {
 
     return { menssage: "[INFO] Tweet created successfully", tweet: newTweet };
   } catch (error) {
-    return { menssage_error: "[ERROR] Failed to create tweet in database", error };
+    return { menssage_error: "[ERROR] Failed to create tweet in database"+ error };
   }
 };
 

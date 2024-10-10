@@ -1,5 +1,5 @@
+const { findUser } = require('../../users/infraestructure/userAdapters');
 const Tweet = require('../domain/tweetsModel');
-
 
 const listTweetsByID = async (userTag) => {
 

@@ -18,13 +18,13 @@ const findUser = async (userTag) => {
 const getFollowings = async (userTag) => {
 
   try {
-    const { message_error, followings } = await getFollowingsByTag(userTag);
+    const { menssage_error, followingTags } = await getFollowingsByTag(userTag);
 
-    if (message_error) {
-      return { message_error };
+    if (menssage_error) {
+      return { menssage_error };
     }
 
-    return { followings };
+    return { followingTags };
   } catch (error) {
     return { message_error: "Error occurred: " + error };
   }
