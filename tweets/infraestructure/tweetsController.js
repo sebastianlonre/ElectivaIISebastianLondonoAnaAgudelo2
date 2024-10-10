@@ -42,7 +42,7 @@ const listTweetsInFeeds = async (request, response) => {
   try {
     const result = await listTweetsInFeed(userTag);
 
-    if (result.message_error) {
+    if (result.menssage_error) {
       return response.status(400).json(result);
     }
 
