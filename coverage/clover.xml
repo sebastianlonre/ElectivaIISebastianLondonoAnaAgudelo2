@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<coverage generated="1728619009867" clover="3.2.0">
+  <project timestamp="1728619009868" name="All files">
+    <metrics statements="155" coveredstatements="71" conditionals="44" coveredconditionals="6" methods="13" coveredmethods="3" elements="212" coveredelements="80" complexity="0" loc="155" ncloc="155" packages="7" files="11" classes="11"/>
+    <package name="social.domain">
+      <metrics statements="6" coveredstatements="6" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+      <file name="socialModel.js" path="C:\Users\sebas\Desktop\FinalProyectX\social\domain\socialModel.js">
+        <metrics statements="6" coveredstatements="6" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+        <line num="1" count="6" type="stmt"/>
+        <line num="3" count="6" type="stmt"/>
+        <line num="8" count="6" type="stmt"/>
+        <line num="13" count="6" type="stmt"/>
+        <line num="14" count="6" type="stmt"/>
+        <line num="16" count="6" type="stmt"/>
+      </file>
+    </package>
+    <package name="tweets.aplication">
+      <metrics statements="58" coveredstatements="14" conditionals="16" coveredconditionals="0" methods="4" coveredmethods="0"/>
+      <file name="listTweetsByID.js" path="C:\Users\sebas\Desktop\FinalProyectX\tweets\aplication\listTweetsByID.js">
+        <metrics statements="13" coveredstatements="4" conditionals="4" coveredconditionals="0" methods="1" coveredmethods="0"/>
+        <line num="1" count="3" type="stmt"/>
+        <line num="2" count="3" type="stmt"/>
+        <line num="4" count="3" type="stmt"/>
+        <line num="6" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="7" count="0" type="stmt"/>
+        <line num="10" count="0" type="stmt"/>
+        <line num="12" count="0" type="stmt"/>
+        <line num="14" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="15" count="0" type="stmt"/>
+        <line num="18" count="0" type="stmt"/>
+        <line num="20" count="0" type="stmt"/>
+        <line num="22" count="0" type="stmt"/>
+        <line num="26" count="3" type="stmt"/>
+      </file>
+      <file name="listTweetsInFeed.js" path="C:\Users\sebas\Desktop\FinalProyectX\tweets\aplication\listTweetsInFeed.js">
+        <metrics statements="26" coveredstatements="5" conditionals="8" coveredconditionals="0" methods="2" coveredmethods="0"/>
+        <line num="1" count="3" type="stmt"/>
+        <line num="2" count="3" type="stmt"/>
+        <line num="3" count="3" type="stmt"/>
+        <line num="5" count="3" type="stmt"/>
+        <line num="6" count="0" type="stmt"/>
+        <line num="8" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="9" count="0" type="stmt"/>
+        <line num="10" count="0" type="stmt"/>
+        <line num="13" count="0" type="stmt"/>
+        <line num="14" count="0" type="stmt"/>
+        <line num="15" count="0" type="stmt"/>
+        <line num="17" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="18" count="0" type="stmt"/>
+        <line num="21" count="0" type="stmt"/>
+        <line num="23" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="24" count="0" type="stmt"/>
+        <line num="26" count="0" type="stmt"/>
+        <line num="27" count="0" type="stmt"/>
+        <line num="29" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="30" count="0" type="stmt"/>
+        <line num="33" count="0" type="stmt"/>
+        <line num="37" count="0" type="stmt"/>
+        <line num="38" count="0" type="stmt"/>
+        <line num="40" count="0" type="stmt"/>
+        <line num="42" count="0" type="stmt"/>
+        <line num="46" count="3" type="stmt"/>
+      </file>
+      <file name="newTweet.js" path="C:\Users\sebas\Desktop\FinalProyectX\tweets\aplication\newTweet.js">
+        <metrics statements="19" coveredstatements="5" conditionals="4" coveredconditionals="0" methods="1" coveredmethods="0"/>
+        <line num="1" count="3" type="stmt"/>
+        <line num="2" count="3" type="stmt"/>
+        <line num="3" count="3" type="stmt"/>
+        <line num="5" count="3" type="stmt"/>
+        <line num="6" count="0" type="stmt"/>
+        <line num="8" count="0" type="stmt"/>
+        <line num="10" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="11" count="0" type="stmt"/>
+        <line num="14" count="0" type="stmt"/>
+        <line num="15" count="0" type="stmt"/>
+        <line num="17" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="18" count="0" type="stmt"/>
+        <line num="21" count="0" type="stmt"/>
+        <line num="27" count="0" type="stmt"/>
+        <line num="29" count="0" type="stmt"/>
+        <line num="30" count="0" type="stmt"/>
+        <line num="32" count="0" type="stmt"/>
+        <line num="34" count="0" type="stmt"/>
+        <line num="38" count="3" type="stmt"/>
+      </file>
+    </package>
+    <package name="tweets.domain">
+      <metrics statements="16" coveredstatements="6" conditionals="8" coveredconditionals="0" methods="1" coveredmethods="0"/>
+      <file name="tweetsModel.js" path="C:\Users\sebas\Desktop\FinalProyectX\tweets\domain\tweetsModel.js">
+        <metrics statements="4" coveredstatements="4" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+        <line num="1" count="7" type="stmt"/>
+        <line num="3" count="7" type="stmt"/>
+        <line num="11" count="7" type="stmt"/>
+        <line num="13" count="7" type="stmt"/>
+      </file>
+      <file name="tweetsValidators.js" path="C:\Users\sebas\Desktop\FinalProyectX\tweets\domain\tweetsValidators.js">
+        <metrics statements="12" coveredstatements="2" conditionals="8" coveredconditionals="0" methods="1" coveredmethods="0"/>
+        <line num="1" count="3" type="stmt"/>
+        <line num="2" count="0" type="stmt"/>
+        <line num="3" count="0" type="stmt"/>
+        <line num="5" count="0" type="cond" truecount="0" falsecount="4"/>
+        <line num="6" count="0" type="stmt"/>
+        <line num="7" count="0" type="stmt"/>
+        <line num="8" count="0" type="stmt"/>
+        <line num="11" count="0" type="cond" truecount="0" falsecount="4"/>
+        <line num="12" count="0" type="stmt"/>
+        <line num="13" count="0" type="stmt"/>
+        <line num="16" count="0" type="stmt"/>
+        <line num="19" count="3" type="stmt"/>
+      </file>
+    </package>
+    <package name="tweets.infraestructure">
+      <metrics statements="29" coveredstatements="29" conditionals="6" coveredconditionals="6" methods="3" coveredmethods="3"/>
+      <file name="tweetsController.js" path="C:\Users\sebas\Desktop\FinalProyectX\tweets\infraestructure\tweetsController.js">
+        <metrics statements="29" coveredstatements="29" conditionals="6" coveredconditionals="6" methods="3" coveredmethods="3"/>
+        <line num="1" count="3" type="stmt"/>
+        <line num="2" count="3" type="stmt"/>
+        <line num="3" count="3" type="stmt"/>
+        <line num="5" count="3" type="stmt"/>
+        <line num="6" count="3" type="stmt"/>
+        <line num="8" count="3" type="stmt"/>
+        <line num="10" count="3" type="stmt"/>
+        <line num="11" count="3" type="stmt"/>
+        <line num="13" count="2" type="cond" truecount="2" falsecount="0"/>
+        <line num="14" count="1" type="stmt"/>
+        <line num="17" count="1" type="stmt"/>
+        <line num="19" count="1" type="stmt"/>
+        <line num="23" count="3" type="stmt"/>
+        <line num="24" count="3" type="stmt"/>
+        <line num="26" count="3" type="stmt"/>
+        <line num="27" count="3" type="stmt"/>
+        <line num="29" count="2" type="cond" truecount="2" falsecount="0"/>
+        <line num="30" count="1" type="stmt"/>
+        <line num="33" count="1" type="stmt"/>
+        <line num="35" count="1" type="stmt"/>
+        <line num="39" count="3" type="stmt"/>
+        <line num="40" count="3" type="stmt"/>
+        <line num="42" count="3" type="stmt"/>
+        <line num="43" count="3" type="stmt"/>
+        <line num="45" count="2" type="cond" truecount="2" falsecount="0"/>
+        <line num="46" count="1" type="stmt"/>
+        <line num="49" count="1" type="stmt"/>
+        <line num="51" count="1" type="stmt"/>
+        <line num="55" count="3" type="stmt"/>
+      </file>
+    </package>
+    <package name="users.aplication">
+      <metrics statements="25" coveredstatements="7" conditionals="10" coveredconditionals="0" methods="3" coveredmethods="0"/>
+      <file name="findUserByTag.js" path="C:\Users\sebas\Desktop\FinalProyectX\users\aplication\findUserByTag.js">
+        <metrics statements="11" coveredstatements="3" conditionals="4" coveredconditionals="0" methods="1" coveredmethods="0"/>
+        <line num="1" count="6" type="stmt"/>
+        <line num="3" count="6" type="stmt"/>
+        <line num="5" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="6" count="0" type="stmt"/>
+        <line num="11" count="0" type="stmt"/>
+        <line num="13" count="0" type="stmt"/>
+        <line num="15" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="16" count="0" type="stmt"/>
+        <line num="21" count="0" type="stmt"/>
+        <line num="27" count="0" type="stmt"/>
+        <line num="31" count="6" type="stmt"/>
+      </file>
+      <file name="getFollowingsByTag.js" path="C:\Users\sebas\Desktop\FinalProyectX\users\aplication\getFollowingsByTag.js">
+        <metrics statements="14" coveredstatements="4" conditionals="6" coveredconditionals="0" methods="2" coveredmethods="0"/>
+        <line num="1" count="6" type="stmt"/>
+        <line num="2" count="6" type="stmt"/>
+        <line num="4" count="6" type="stmt"/>
+        <line num="6" count="0" type="stmt"/>
+        <line num="8" count="0" type="stmt"/>
+        <line num="10" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="11" count="0" type="stmt"/>
+        <line num="14" count="0" type="stmt"/>
+        <line num="16" count="0" type="cond" truecount="0" falsecount="4"/>
+        <line num="17" count="0" type="stmt"/>
+        <line num="20" count="0" type="stmt"/>
+        <line num="22" count="0" type="stmt"/>
+        <line num="25" count="0" type="stmt"/>
+        <line num="30" count="6" type="stmt"/>
+      </file>
+    </package>
+    <package name="users.domain">
+      <metrics statements="4" coveredstatements="4" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+      <file name="userModel.js" path="C:\Users\sebas\Desktop\FinalProyectX\users\domain\userModel.js">
+        <metrics statements="4" coveredstatements="4" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+        <line num="1" count="6" type="stmt"/>
+        <line num="3" count="6" type="stmt"/>
+        <line num="15" count="6" type="stmt"/>
+        <line num="17" count="6" type="stmt"/>
+      </file>
+    </package>
+    <package name="users.infraestructure">
+      <metrics statements="17" coveredstatements="5" conditionals="4" coveredconditionals="0" methods="2" coveredmethods="0"/>
+      <file name="userAdapters.js" path="C:\Users\sebas\Desktop\FinalProyectX\users\infraestructure\userAdapters.js">
+        <metrics statements="17" coveredstatements="5" conditionals="4" coveredconditionals="0" methods="2" coveredmethods="0"/>
+        <line num="1" count="6" type="stmt"/>
+        <line num="2" count="6" type="stmt"/>
+        <line num="4" count="6" type="stmt"/>
+        <line num="5" count="0" type="stmt"/>
+        <line num="6" count="0" type="stmt"/>
+        <line num="8" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="9" count="0" type="stmt"/>
+        <line num="12" count="0" type="stmt"/>
+        <line num="14" count="0" type="stmt"/>
+        <line num="18" count="6" type="stmt"/>
+        <line num="20" count="0" type="stmt"/>
+        <line num="21" count="0" type="stmt"/>
+        <line num="23" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="24" count="0" type="stmt"/>
+        <line num="27" count="0" type="stmt"/>
+        <line num="29" count="0" type="stmt"/>
+        <line num="34" count="6" type="stmt"/>
+      </file>
+    </package>
+  </project>
+</coverage>
