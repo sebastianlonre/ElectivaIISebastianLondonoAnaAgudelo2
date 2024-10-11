@@ -1,6 +1,6 @@
 const socialValidator = (userTag, userToFollowTag) => {
 
-  const validation = true;
+  let validation = true;
   let menssage = "";
 
   if (!userTag) {

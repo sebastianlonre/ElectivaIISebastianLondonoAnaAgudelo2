@@ -3,7 +3,7 @@
 <html lang="en">
 
 <head>
-    <title>Code coverage report for tweets/aplication/listTweetsInFeed.js</title>
+    <title>Code coverage report for social/aplication/followUser.js</title>
     <meta charset="utf-8" />
     <link rel="stylesheet" href="../../prettify.css" />
     <link rel="stylesheet" href="../../base.css" />
@@ -19,34 +19,34 @@
 <body>
 <div class='wrapper'>
     <div class='pad1'>
-        <h1><a href="../../index.html">All files</a> / <a href="index.html">tweets/aplication</a> listTweetsInFeed.js</h1>
+        <h1><a href="../../index.html">All files</a> / <a href="index.html">social/aplication</a> followUser.js</h1>
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">96.29% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>26/27</span>
+                <span class='fraction'>29/29</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">87.5% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>7/8</span>
+                <span class='fraction'>8/8</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>2/2</span>
+                <span class='fraction'>1/1</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">96.15% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>25/26</span>
+                <span class='fraction'>29/29</span>
             </div>
         
             
@@ -111,101 +111,104 @@
 <a name='L46'></a><a href='#L46'>46</a>
 <a name='L47'></a><a href='#L47'>47</a>
 <a name='L48'></a><a href='#L48'>48</a>
-<a name='L49'></a><a href='#L49'>49</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-yes">5x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">5x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-yes">4x</span>
+<a name='L49'></a><a href='#L49'>49</a>
+<a name='L50'></a><a href='#L50'>50</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">6x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">8x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">const { getFollowings } = require('../../users/infraestructure/userAdapters');
-const Tweet = require('../domain/tweetsModel');
-const { listTweetsByID } = require('./listTweetsByID');
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">const { findUser } = require("../../users/infraestructure/userAdapters");
+const { Followings, Followers } = require("../domain/socialModel");
+const { socialValidator } = require("../domain/socialValidator");
+const { checkIfAlreadyFollowing } = require("./checkFollowing");
 &nbsp;
-const listTweetsInFeed = async (userTag) =&gt; {
-  let tweetsInFeed = [];
+const followUser = async (userTag, userToFollowTag) =&gt; {
+  const { validation, menssage } = socialValidator(userTag, userToFollowTag);
 &nbsp;
-  if (!userTag) {
-    tweetsInFeed = await Tweet.find().sort({ createTweetAt: -1 });
-    return { message: "Tweet return successfully for not user login", tweetsInFeed };
+  if (!validation) {
+    return { menssage_error: menssage };
   }
 &nbsp;
   try {
-    let userActiveTweets = await listTweetsByID(userTag);
-    let followingsTweets = [];
-&nbsp;
-    if (userActiveTweets.menssage_error) {
-      return { menssage_error: userActiveTweets.menssage_error };
+    const { message_error: messageErrorUser, user } = await findUser(userTag);
+    if (messageErrorUser) {
+      return { menssage_error: messageErrorUser };
     }
 &nbsp;
-    const followings = await getFollowings(userTag);
-&nbsp;
-    if (followings.message_error) {
-      return { menssage_error: followings.message_error };
-    } else {
-      for (const tag of followings.followingTags) {
-        const tweets = await listTweetsByID(tag);
-&nbsp;
-        <span class="missing-if-branch" title="if path not taken" >I</span>if (tweets.message_error) {
-<span class="cstat-no" title="statement not covered" >          return { menssage_error: tweets.message_error };</span>
-        }
-&nbsp;
-        followingsTweets.push(...tweets.tweets);
-      }
+    const { message_error: messageErrorUserToFollow, user: userToFollow } = await findUser(userToFollowTag);
+    if (messageErrorUserToFollow) {
+      return { menssage_error: messageErrorUserToFollow };
     }
 &nbsp;
-    tweetsInFeed = [...userActiveTweets.tweets, ...followingsTweets];
-    tweetsInFeed.sort((a, b) =&gt; new Date(b.createTweetAt) - new Date(a.createTweetAt));
+    const isAlreadyFollowing = await checkIfAlreadyFollowing(userTag, userToFollowTag);
+    if (isAlreadyFollowing) {
+      return { menssage_error: `User ${userTag} already follows ${userToFollowTag}` };
+    }
 &nbsp;
-    return { message: "Tweets retrieved successfully", tweetsInFeed };
+    const newFollowing = new Followings({ userTag, followingTag: userToFollowTag });
+    const newFollower = new Followers({ userTag: userToFollowTag, followerTag: userTag });
+&nbsp;
+    await newFollowing.save();
+    await newFollower.save();
+&nbsp;
+    user.followings.push(newFollowing._id);
+    userToFollow.followers.push(newFollower._id);
+&nbsp;
+    await user.save();
+    await userToFollow.save();
+&nbsp;
+    return { menssage: `The user ${userTag} now follows ${userToFollowTag}` };
   } catch (error) {
-    return { menssage_error: "Failed to search tweets" + error };
+    return { menssage_error: "Failed to follow user: " + error.message };
   }
 };
 &nbsp;
 module.exports = {
-  listTweetsInFeed,
+  followUser
 };
 &nbsp;</pre></td></tr></table></pre>
 
