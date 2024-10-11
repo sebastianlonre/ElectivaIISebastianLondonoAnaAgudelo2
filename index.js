@@ -2,7 +2,10 @@ require('dotenv').config();
 const express = require('express');
 const router = require('./shared/routes/apiRoutes');
 const { dbConnection } = require('./shared/dataBase/dataBaseConfig');
+const session = require('express-session');
+
 const { PORT } = process.env || 4000;
+
 
 const app = express();
 
