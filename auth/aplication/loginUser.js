@@ -1,28 +1,32 @@
-const { findUser } = require("../../users/infraestructure/userAdapters"); 
-const { generateToken } = require("../aplication/generateJWT");
+const User = require("../../users/domain/userModel");
 const { validateDataForLogin } = require("./validateDataForLogin");
-
+const { generateToken } = require("./generateJWT");
 
 const loginUser = async (userData) => {
   const { userTag, password } = userData;
-  
-  const validationResult = validateDataForLogin(userData);
 
+  const validationResult = validateDataForLogin(userData);
   if (validationResult) {
-    return { message_error: validationResult.message_error };
+    return { message_error: validationResult.menssage_error };
   }
 
   try {
-    const { user, message_error } = await findUser(userTag);
-    if (message_error || !user) {
-      return { message_error: "[ERROR] User not found" };
+
+    let user = await User.findOne({ userTag });
+
+    if (!user) {
+      return { message_error: "[ERROR] The user does not exist" };
     }
-    
-    const token = generateToken({ userTag, password });
-    
+
+    if (password !== user.password) {
+      return { message_error: "[ERROR] Incorrect password" };
+    }
+
+    const token = generateToken({ userData });
     return { message: "[INFO] Login successful", token };
+
   } catch (error) {
-    return { message_error: "[ERROR] Login failed: " + error };
+    return { message_error: "[ERROR] Login failed: " + error.message };
   }
 };
 

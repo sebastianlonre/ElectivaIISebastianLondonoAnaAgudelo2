@@ -4,7 +4,6 @@ const registerValidator = (userData) => {
 
   const { userName, userLastName, userTag } = userData;
 
-  // Null validations
   if (!userName) {
     registerValidation = false;
     registerMessage = "[ERROR] user name is required";
@@ -23,7 +22,6 @@ const registerValidator = (userData) => {
     return { registerValidation, registerMessage };
   }
 
-  //long validations
   if(userName.length < 1 || userName.length > 45){
     registerValidation = false;
     registerMessage = "[ERROR] user name must be between 1 and 45 characters";
@@ -42,7 +40,6 @@ const registerValidator = (userData) => {
     return { registerValidation, registerMessage };
   }
 
-  // Special character validations
   const hasSpecialCharsUserName = /[^a-zA-Z0-9]/.test(userName);
   if (hasSpecialCharsUserName) {
     registerValidation = false;

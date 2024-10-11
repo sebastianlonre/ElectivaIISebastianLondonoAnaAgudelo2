@@ -13,6 +13,7 @@ router.post("/tweets/feed", listTweetsInFeeds)
 
 //Auth
 router.post("/auth/register", registerUserItem);
+router.post('/login', loginUserItem);
 
 //social
 router.put("/social/follow", followUsers)
@@ -22,7 +23,6 @@ router.delete("/social/unfollow", unfollowUsers)
 router.get("/:userTag", findUsersByTag)
 router.get("/:userTag/followers", getFollowers)
 
-//Login
-router.post('/login', loginUserItem)
+
 
 module.exports = router;

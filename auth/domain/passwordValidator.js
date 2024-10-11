@@ -4,21 +4,18 @@ const passwordValidator = (password) => {
 
   console.log(password)
 
-  // Null validations
   if (!password) {
     passwordValidation = false;
     passwordMessage = "[ERROR] password is required";
     return { passwordValidation, passwordMessage };
   }
 
-  // Length validation
   if (password.length < 8 || password.length > 30) {
     passwordValidation = false;
     passwordMessage = "[ERROR] password must be between 8 and 30 characters";
     return { passwordValidation, passwordMessage };
   }
 
-  // Structure validation
   const hasUppercase = /[A-Z]/.test(password);
   if (!hasUppercase) {
     passwordValidation = false;

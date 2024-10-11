@@ -12,7 +12,7 @@ const registerUserItem = async (request, response) => {
       return response.status(400).json(result);
     }
 
-    return response.status(201).json(result);
+    return response.status(200).json(result);
   } catch (error) {
     return response
       .status(500)
@@ -27,17 +27,11 @@ const loginUserItem = async (req, res) => {
     const result = await loginUser({ userTag, password });
 
     if (result.message_error) {
-      return res.status(400).json({
-        ok: false,
-        message_error: result.message_error,
-      });
+      return res.status(400).json(result);
     }
 
-    return res.status(200).json({
-      ok: true,
-      message: "Successful login",
-      token: result.token,
-    });
+    return res.status(200).json(result);
+
   } catch (error) {
     return res.status(500).json({
       ok: false,

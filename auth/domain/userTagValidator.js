@@ -8,17 +8,17 @@ const userTagValidator = (userTag) => {
     return { userTagValidation, userTagMessage };
   }
 
-  const userTagValidChars = /^[a-zA-Z0-9_]+$/.test(userTag);
-  if (!userTagValidChars) {
+  if (!userTag.includes("@")) {
     userTagValidation = false;
-    userTagMessage =
-      "[ERROR] userTag must contain only alphanumeric characters or underscores.";
+    userTagMessage = "[ERROR] userTag must contain an '@' symbol.";
     return { userTagValidation, userTagMessage };
   }
 
-  if (userTag.length < 3 || userTag.length > 15) {
+  const userTagValidChars = /^[a-zA-Z0-9_@]+$/.test(userTag);
+  if (!userTagValidChars) {
     userTagValidation = false;
-    userTagMessage = "[ERROR] userTag must be between 3 and 15 characters.";
+    userTagMessage =
+      "[ERROR] userTag must contain only alphanumeric characters, underscores, or '@'.";
     return { userTagValidation, userTagMessage };
   }
 
