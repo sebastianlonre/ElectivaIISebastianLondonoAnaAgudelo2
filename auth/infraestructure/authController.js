@@ -30,7 +30,12 @@ const loginUserItem = async (req, res) => {
       return res.status(400).json(result);
     }
 
-    return res.status(200).json(result);
+    req.session.user = { userTag };
+    
+    return res.status(200).json({
+      message: result.message,
+      token: result.token,
+    });
 
   } catch (error) {
     return res.status(500).json({
@@ -40,4 +45,15 @@ const loginUserItem = async (req, res) => {
   }
 };
 
-module.exports = { registerUserItem, loginUserItem };
+
+const logoutUserItem = async (req, res) => {
+
+  req.session.destroy(err => {
+    if (err) {
+      return res.status(500).json({ message_error: "[ERROR] Could not log out" });
+    }
+    res.status(200).json({ message: "[INFO] Logout successful" });
+  });
+};
+
+module.exports = { registerUserItem, loginUserItem, logoutUserItem };
