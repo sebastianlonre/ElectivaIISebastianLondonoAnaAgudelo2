@@ -14,8 +14,8 @@ Este proyecto consiste en desarrollar un clon de la red social X (anteriormente 
 **Instrucciones de compilación y ejecución:**
 1. Clonar el repositorio:
     - git clone https://github.com/sebastianlonre/ElectivaIISebastianLondonoAnaAgudelo2
-    - Lo abre en su editor de código de preferencia.
-2. Instalar las dependencias(en caso de que no las tenga):
+    -  Puede utilizar el editor de código de su preferencia.
+2. Instalar las dependencias(en caso de que el proyecto no las tenga):
     - npm install
 3. Iniciar el servidor:
     - node index.js
@@ -38,3 +38,54 @@ Este proyecto consiste en desarrollar un clon de la red social X (anteriormente 
 
 **Licencia:**
 -  MIT
+
+**Rutas API:**
+Estas son las consultas HTTP (Pueden ser realizadas en Postman)
+
+***El servidor estará corriendo en http://localhost:4000.***
+
+***Registro de Usuario***
+
+- POST /api/register: Crea un nuevo usuario.
+
+    Request Body:
+    {
+    "userName": "string",
+    "userLastName": "string",
+    "userTag": "string",
+    "email": "string",
+    "password": "string"
+    } 
+
+    Responses:
+    - 200: { "message": "[INFO] User registered successfully", "token": "..." }
+    - 400: { "message_error": "..." }
+
+***Inicio de Sesión***
+
+- POST /api/login: Inicia sesión con un usuario existente.
+
+    Request Body:
+    {
+    "userTag": "string",
+    "password": "string"
+    } 
+
+    Responses:
+    - 200: { "message": "[INFO] Login successful", "token": "..." }
+    - 400: { "message_error": "..." }
+
+***Verificación de Sesión***
+
+- GET /api/protected-route: Requiere autenticación para acceder.
+
+    Responses:
+    - 200: { "message": "You are authenticated", "user": { "userTag": "..." } }
+    - 401: { "message_error": "[ERROR] Not authenticated Users currently" }
+
+***Cierre de Sesión***
+
+- POST /api/logout: Cierra la sesión del usuario.
+
+    Responses:
+    - 200: { "message": "[INFO] Logout successful" }
