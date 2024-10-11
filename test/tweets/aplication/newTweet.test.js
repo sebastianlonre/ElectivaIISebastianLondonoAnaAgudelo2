@@ -7,7 +7,7 @@ jest.mock("../../../users/infraestructure/userAdapters");
 jest.mock("../../../tweets/domain/tweetsModel");
 jest.mock("../../../tweets/domain/tweetsValidators");
 
-describe('NewTweet.js', () => {
+describe('newTweet.js', () => {
 
   describe('Create a new tweet', () => {
 
