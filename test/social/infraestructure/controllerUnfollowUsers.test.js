@@ -1,8 +1,8 @@
 const httpMocks = require('node-mocks-http');
-const { unFollowUser } = require('../../../social/aplication/unFollowUser');
 const { unfollowUsers } = require('../../../social/infraestructure/socialController');
+const { unFollowUser } = require('../../../social/aplication/unFollowUser');
 
-jest.mock('../../../social/aplication/unFollowUser');
+jest.mock('../../../social/aplication/unfollowUser');
 
 describe('unfollowUsersController.js', () => {
 
@@ -47,7 +47,7 @@ describe('unfollowUsersController.js', () => {
           url: '/unfollow',
           body: {
             userTag: "@UserPrototypeTag",
-            userToUnfollowTag: null // Simulando un error
+            userToUnfollowTag: null
           }
         });
 

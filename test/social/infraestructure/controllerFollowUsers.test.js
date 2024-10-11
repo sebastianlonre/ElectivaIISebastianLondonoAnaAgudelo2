@@ -47,7 +47,7 @@ describe('followUsersController.js', () => {
           url: '/follow',
           body: {
             userTag: "@UserPrototypeTag",
-            userToFollowTag: null // Simulando un error
+            userToFollowTag: null
           }
         });
 
