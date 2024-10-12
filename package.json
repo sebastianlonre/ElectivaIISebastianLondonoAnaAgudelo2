@@ -4,7 +4,9 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "node --watch index.js"
+    "dev": "node --watch index.js",
+    "tests": "jest --watchAll",
+    "coverage": "jest --coverage"
   },
   "author": "Ana y Sebas",
   "license": "ISC",
@@ -15,8 +17,10 @@
     "express": "^4.21.0",
     "express-session": "^1.18.1",
     "install": "^0.13.0",
+    "jest": "^29.7.0",
     "jsonwebtoken": "^9.0.2",
     "mongoose": "^8.7.1",
+    "node-mocks-http": "^1.16.1",
     "npm": "^10.8.3"
   }
 }

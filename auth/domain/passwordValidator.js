@@ -2,8 +2,6 @@ const passwordValidator = (password) => {
   let passwordValidation = true;
   let passwordMessage = "";
 
-  console.log(password)
-
   if (!password) {
     passwordValidation = false;
     passwordMessage = "[ERROR] password is required";

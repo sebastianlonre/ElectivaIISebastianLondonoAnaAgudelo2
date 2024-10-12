@@ -30,4 +30,4 @@ const loginUser = async (userData) => {
   }
 };
 
-module.exports = { loginUser };
+module.exports =  loginUser;
