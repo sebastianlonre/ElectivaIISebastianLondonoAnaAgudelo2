@@ -16,7 +16,7 @@ const newTweet = async (request, response) => {
 
     return response.status(201).json(result);
   } catch (error) {
-    return response.status(500).json({ menssage_error: "[ERROR] Unexpected server error "+ error });
+    return response.status(500).json({ menssage_error: "[ERROR] Unexpected server error " + error });
   }
 };
 
@@ -32,7 +32,7 @@ const listTweetsByIDs = async (request, response) => {
 
     return response.status(200).json(result);
   } catch (error) {
-    return response.status(500).json({ menssage_error: "[ERROR] Unexpected server error "+ error });
+    return response.status(500).json({ menssage_error: "[ERROR] Unexpected server error " + error });
   }
 }
 
@@ -42,15 +42,15 @@ const listTweetsInFeeds = async (request, response) => {
   try {
     const result = await listTweetsInFeed(userTag);
 
-    if (result.message_error) {
+    if (result.menssage_error) {
       return response.status(400).json(result);
     }
 
     return response.status(200).json(result);
   } catch (error) {
-    return response.status(500).json({ menssage_error: "[ERROR] Unexpected server error "+ error});
+    return response.status(500).json({ menssage_error: "[ERROR] Unexpected server error " + error });
   }
-}
+};
 
 module.exports = {
   newTweet,

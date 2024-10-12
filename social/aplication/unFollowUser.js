@@ -1,4 +1,4 @@
-const findUser = require("../../users/infraestructure/userAdapters");
+const {findUser} = require("../../users/infraestructure/userAdapters");
 const { Followings, Followers } = require("../domain/socialModel");
 const { socialValidator } = require("../domain/socialValidator");
 const { checkIfAlreadyFollowing } = require("./checkFollowing");
