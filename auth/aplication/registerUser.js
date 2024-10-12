@@ -1,5 +1,7 @@
 const User = require("../../users/domain/userModel");
 const { validateDataForRegister } = require("./validateDataForRegister");
+const { generateToken } = require("./generateJWT");
+
 
 
 const registerUser = async (userData) => {
@@ -13,8 +15,9 @@ const registerUser = async (userData) => {
   }
 
   try {
+    const tag = "@"+ userTag
 
-    let user = await User.findOne({ userTag });
+    let user = await User.findOne({ userTag: tag });
 
     if (user) {
       return { message_error: "[ERROR] the user already exists" };
@@ -32,7 +35,8 @@ const registerUser = async (userData) => {
 
     await user.save();
 
-    return { message: "[INFO] User registered successfully" };
+    const token = generateToken({ userData});
+    return { message: "[INFO] User registered successfully", token };
 
   } catch (error) {
     return { message_error: "[ERROR] to register user: " + error };
