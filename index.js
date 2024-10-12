@@ -4,6 +4,9 @@ const router = require('./shared/routes/apiRoutes');
 const { dbConnection } = require('./shared/dataBase/dataBaseConfig');
 const MongoStore = require('connect-mongo');
 const session = require('express-session');
+const swaggerUi = require('swagger-ui-express');
+const openapiSpecification = require('./swagger/swagger')
+
 
 const { PORT, MONGO_DB, DB_NAME, SESSION_SECRET } = process.env;
 
@@ -14,12 +17,14 @@ dbConnection();
 app.use(express.json());
 
 app.use(session({
-  secret: SESSION_SECRET, 
+  secret: SESSION_SECRET,
   resave: false,
   saveUninitialized: false,
   store: MongoStore.create({ mongoUrl: `${MONGO_DB}${DB_NAME}` }),
-  cookie: { secure: false } 
+  cookie: { secure: false }
 }));
+
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(openapiSpecification))
 
 app.use("/api", router);
 
