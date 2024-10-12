@@ -4,7 +4,7 @@ const { newTweet, listTweetsByIDs, listTweetsInFeeds } = require("../../tweets/i
 const { registerUserItem, loginUserItem, logoutUserItem } = require("../../auth/infraestructure/authController");
 const { followUsers } = require("../../social/infraestructure/socialController");
 const { unfollowUsers } = require("../../social/infraestructure/socialController");
-const { findUsersByTag, getFollowers } = require("../../users/infraestructure/userController");
+const { findUsersByTag, getFollowers, getFollwings } = require("../../users/infraestructure/userController");
 
 const checkAuthentication = (req, res, next) => {
     if (req.session.user) {
@@ -37,6 +37,7 @@ router.delete("/social/unfollow", unfollowUsers)
 //user
 router.get("/:userTag", findUsersByTag)
 router.get("/:userTag/followers", getFollowers)
+router.get("/:userTag/followings", getFollwings)
 
 
 

@@ -1,4 +1,4 @@
-const findUser = require("../../users/infraestructure/userAdapters");
+const { findUser } = require("../../users/infraestructure/userAdapters");
 const { Followings, Followers } = require("../domain/socialModel");
 const { socialValidator } = require("../domain/socialValidator");
 const { checkIfAlreadyFollowing } = require("./checkFollowing");
@@ -22,7 +22,6 @@ const followUser = async (userTag, userToFollowTag) => {
     }
 
     const isAlreadyFollowing = await checkIfAlreadyFollowing(userTag, userToFollowTag);
-
     if (isAlreadyFollowing) {
       return { menssage_error: `User ${userTag} already follows ${userToFollowTag}` };
     }
@@ -40,7 +39,6 @@ const followUser = async (userTag, userToFollowTag) => {
     await userToFollow.save();
 
     return { menssage: `The user ${userTag} now follows ${userToFollowTag}` };
-
   } catch (error) {
     return { menssage_error: "Failed to follow user: " + error.message };
   }
