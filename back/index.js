@@ -23,7 +23,10 @@ app.use(session({
   resave: false,
   saveUninitialized: false,
   store: MongoStore.create({ mongoUrl: `${MONGO_DB}${DB_NAME}` }),
-  cookie: { secure: false }
+  cookie: {
+    secure: false,
+    maxAge: 2 * 60 * 60 * 1000
+  }
 }));
 
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(openapiSpecification))
