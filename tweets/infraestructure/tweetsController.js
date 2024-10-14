@@ -4,6 +4,7 @@ const { listTweetsInFeed } = require("../aplication/listTweetsInFeed");
 
 const newTweet = async (request, response) => {
   const { userName, userTag, content } = request.body;
+  console.log(request.body);
 
   const tweetData = { userName, userTag, content };
 

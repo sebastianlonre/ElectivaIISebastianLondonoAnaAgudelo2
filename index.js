@@ -6,6 +6,7 @@ const MongoStore = require('connect-mongo');
 const session = require('express-session');
 const swaggerUi = require('swagger-ui-express');
 const openapiSpecification = require('./swagger/swagger')
+const cors = require('cors');
 
 
 const { PORT, MONGO_DB, DB_NAME, SESSION_SECRET } = process.env;
@@ -15,6 +16,7 @@ const app = express();
 dbConnection();
 
 app.use(express.json());
+app.use(cors());
 
 app.use(session({
   secret: SESSION_SECRET,

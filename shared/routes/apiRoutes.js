@@ -22,28 +22,29 @@ const checkAuthentication = (req, res, next) => {
  */
 
 /**
+ /**
+ /**
  * @swagger
  * /api/tweets:
  *   post:
  *     summary: Create a new tweet
  *     tags: [Tweets]
- *     parameters:
- *       - in: body
- *         name: tweet
- *         description: Tweet object that needs to be created
- *         required: true
- *         schema:
- *           type: object
- *           properties:
- *             userName:
- *               type: string
- *               example: "Niah"
- *             userTag:
- *               type: string
- *               example: "@NiahUwu"
- *             content:
- *               type: string
- *               example: "awua con sabor a awua"
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               userName:
+ *                 type: string
+ *                 example: "Niah"
+ *               userTag:
+ *                 type: string
+ *                 example: "@NiahUwu"
+ *               content:
+ *                 type: string
+ *                 example: "awua con sabor a awua"
  *     responses:
  *       201:
  *         description: Tweet created successfully
@@ -53,6 +54,7 @@ const checkAuthentication = (req, res, next) => {
  *         description: Internal server error
  */
 router.post("/tweets", newTweet);
+
 
 
 /**
@@ -83,6 +85,15 @@ router.get("/tweets/:userTag", listTweetsByIDs);
  *   post:
  *     summary: List tweets in feeds
  *     tags: [Tweets]
+ *     requestBody:
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               userTag:
+ *                 type: string
+ *                 example: "@NiahUwu"
  *     responses:
  *       200:
  *         description: A list of tweets in feeds
@@ -102,13 +113,38 @@ router.post("/tweets/feed", listTweetsInFeeds);
  *   post:
  *     summary: Register a new user
  *     tags: [Auth]
+ *     consumes:
+ *       - application/json
+ *     parameters:
+ *       - in: body
+ *         name: registerData
+ *         description: User Register credentials
+ *         required: true
+ *         schema:
+ *           type: object
+ *           properties:
+ *             userName:
+ *               type: string
+ *               example: "Prototype"
+ *             userLastName:
+ *               type: string
+ *               example: "User"
+ *             userTag:
+ *               type: string
+ *               example: "@UserPrototypeTag"
+ *             email:
+ *               type: string
+ *               example: "admin@admin.com"
+ *             password:
+ *               type: string
+ *               example: "CurrentPassword.1"
  *     responses:
  *       201:
  *         description: User registered successfully
  *       400:
  *         description: Invalid input
  */
-router.post("/auth/register", registerUserItem);
+router.post("/register", registerUserItem);
 
 /**
  * @swagger
@@ -116,6 +152,22 @@ router.post("/auth/register", registerUserItem);
  *   post:
  *     summary: Log in a user
  *     tags: [Auth]
+ *     consumes:
+ *       - application/json
+ *     parameters:
+ *       - in: body
+ *         name: loginData
+ *         description: User login credentials
+ *         required: true
+ *         schema:
+ *           type: object
+ *           properties:
+ *             userTag:
+ *               type: string
+ *               example: "@UserPrototypeTag"
+ *             password:
+ *               type: string
+ *               example: "CurrentPassword.1"
  *     responses:
  *       200:
  *         description: User logged in successfully
@@ -167,20 +219,19 @@ router.get('/protected-route', checkAuthentication, (req, res) => {
  *   put:
  *     summary: Follow a user
  *     tags: [Social]
- *     parameters:
- *       - in: body
- *         name: followData
- *         description: Object containing user tags for following
- *         required: true
- *         schema:
- *           type: object
- *           properties:
- *             userTag:
- *               type: string
- *               example: "@NiahUwu"
- *             userToFollowTag:
- *               type: string
- *               example: "@Magdalena"
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               userTag:
+ *                 type: string
+ *                 example: "@NiahUwu"
+ *               userToFollowTag:
+ *                 type: string
+ *                 example: "@Magdalena"
  *     responses:
  *       200:
  *         description: User followed successfully
@@ -198,20 +249,19 @@ router.put("/social/follow", followUsers);
  *   delete:
  *     summary: unfollow a user
  *     tags: [Social]
- *     parameters:
- *       - in: body
- *         name: followData
- *         description: Object containing user tags for unfollowing
- *         required: true
- *         schema:
- *           type: object
- *           properties:
- *             userTag:
- *               type: string
- *               example: "@NiahUwu"
- *             userToUnfollowTag:
- *               type: string
- *               example: "@Magdalena"
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               userTag:
+ *                 type: string
+ *                 example: "@NiahUwu"
+ *               userToUnfollowTag:
+ *                 type: string
+ *                 example: "@Magdalena"
  *     responses:
  *       200:
  *         description: User followed successfully

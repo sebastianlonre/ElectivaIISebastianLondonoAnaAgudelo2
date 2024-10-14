@@ -1,7 +1,7 @@
 const httpMocks = require("node-mocks-http");
 const authController = require("../../auth/infraestructure/authController");
 const registerUser = require("../../auth/aplication/registerUser");
-const loginUser = require("../../auth/aplication/loginUser");
+const { loginUser } = require("../../auth/aplication/loginUser");
 
 jest.mock("../../auth/aplication/registerUser");
 jest.mock("../../auth/aplication/loginUser");
