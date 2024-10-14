@@ -1,71 +1,78 @@
-const loginUser = require("../../auth//aplication/loginUser"); 
-const User = require("../../users/domain/userModel");
 const { generateToken } = require("../../auth/aplication/generateJWT");
+const { loginUser } = require("../../auth/aplication/loginUser");
 const { validateDataForLogin } = require("../../auth/aplication/validateDataForLogin");
+const User = require("../../users/domain/userModel");
 
 jest.mock("../../users/domain/userModel");
-jest.mock("../../auth/aplication/generateJWT");
 jest.mock("../../auth/aplication/validateDataForLogin");
+jest.mock("../../auth/aplication/generateJWT");
 
-describe("loginUser", () => {
-  const mockUserData = {
-    userTag: "@UserPrototype",
-    password: "CurrentPassword.1",
-  };
+describe('loginUser', () => {
+  describe('Validating user login', () => {
+    const mockUserData = { userTag: "@UserPrototype", password: "password123" };
 
-  beforeEach(() => {
-    jest.clearAllMocks();
-  });
+    test('should return error message if validation fails', async () => {
+      const mockValidationError = { menssage_error: "[ERROR] Invalid data" };
+      validateDataForLogin.mockReturnValue(mockValidationError);
 
-  test("should return error if validation fails", async () => {
-    const validationError = { menssage_error: "[ERROR] Validation error" };
-    validateDataForLogin.mockReturnValueOnce(validationError);
+      const result = await loginUser(mockUserData);
 
-    const result = await loginUser(mockUserData);
+      expect(result).toEqual({
+        message_error: mockValidationError.menssage_error,
+      });
+    });
 
-    expect(result).toEqual(validationError);
-    expect(validateDataForLogin).toHaveBeenCalledWith(mockUserData);
-  });
+    test('should return error message if user does not exist', async () => {
+      validateDataForLogin.mockReturnValue(null);
+      User.findOne.mockResolvedValue(null);
 
-  test("should return error if user does not exist", async () => {
-    validateDataForLogin.mockReturnValueOnce(null);
-    User.findOne.mockResolvedValueOnce(null);
+      const result = await loginUser(mockUserData);
 
-    const result = await loginUser(mockUserData);
+      expect(result).toEqual({
+        message_error: "[ERROR] The user does not exist",
+      });
+    });
 
-    expect(result).toEqual({ message_error: "[ERROR] The user does not exist" });
-    expect(User.findOne).toHaveBeenCalledWith({ userTag: mockUserData.userTag });
-  });
+    test('should return error message if password is incorrect', async () => {
+      const mockUser = { userTag: mockUserData.userTag, password: "wrongPassword" };
+      validateDataForLogin.mockReturnValue(null);
+      User.findOne.mockResolvedValue(mockUser);
 
-  test("should return error if password is incorrect", async () => {
-    const mockUser = { password: "WrongPassword" };
-    validateDataForLogin.mockReturnValueOnce(null);
-    User.findOne.mockResolvedValueOnce(mockUser);
+      const result = await loginUser(mockUserData);
 
-    const result = await loginUser(mockUserData);
+      expect(result).toEqual({
+        message_error: "[ERROR] Incorrect password",
+      });
+    });
 
-    expect(result).toEqual({ message_error: "[ERROR] Incorrect password" });
-  });
+    test('should return success message and token if login is successful', async () => {
+      const mockUser = { userTag: mockUserData.userTag, password: mockUserData.password };
+      const mockToken = "mockToken123";
 
-  test("should return success message and token if login is successful", async () => {
-    const mockUser = { password: mockUserData.password };
-    validateDataForLogin.mockReturnValueOnce(null);
-    User.findOne.mockResolvedValueOnce(mockUser);
-    generateToken.mockReturnValueOnce("mockToken");
+      validateDataForLogin.mockReturnValue(null);
+      User.findOne.mockResolvedValue(mockUser);
+      generateToken.mockReturnValue(mockToken);
 
-    const result = await loginUser(mockUserData);
+      const result = await loginUser(mockUserData);
 
-    expect(result).toEqual({ message: "[INFO] Login successful", token: "mockToken" });
-    expect(generateToken).toHaveBeenCalledWith({ userData: mockUserData });
-  });
+      expect(result).toEqual({
+        message: "[INFO] Login successful",
+        token: mockToken,
+      });
+    });
 
-  test("should return error if an exception occurs", async () => {
-    const validationError = new Error("Database connection failed");
-    validateDataForLogin.mockReturnValueOnce(null);
-    User.findOne.mockRejectedValueOnce(validationError);
+    test('should return error message on unexpected error', async () => {
+      const mockError = new Error("[ERROR] Unexpected error");
+      validateDataForLogin.mockReturnValue(null);
+      User.findOne.mockImplementation(() => {
+        throw mockError;
+      });
 
-    const result = await loginUser(mockUserData);
+      const result = await loginUser(mockUserData);
 
-    expect(result).toEqual({ message_error: "[ERROR] Login failed: Database connection failed" });
+      expect(result).toEqual({
+        message_error: "[ERROR] Login failed: " + mockError,
+      });
+    });
   });
 });

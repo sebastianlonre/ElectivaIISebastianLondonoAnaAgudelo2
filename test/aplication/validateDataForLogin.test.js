@@ -1,58 +1,61 @@
+const { loginValidator } = require("../../auth/domain/loginValidator");
 const { validateDataForLogin } = require("../../auth/aplication/validateDataForLogin");
 const { userTagValidator } = require("../../auth/domain/userTagValidator");
 const { passwordValidator } = require("../../auth/domain/passwordValidator");
-const { loginValidator } = require("../../auth/domain/loginValidator");
 
 jest.mock("../../auth/domain/userTagValidator");
 jest.mock("../../auth/domain/passwordValidator");
 jest.mock("../../auth/domain/loginValidator");
 
-describe("validateDataForLogin", () => {
-  const userData = {
-    userTag: "UserPrototype",
-    password: "CurrentPassword"
-  };
+describe('validateDataForLogin', () => {
+  const mockUserData = { userTag: "@UserPrototype", password: "password123" };
 
-  afterEach(() => {
-    jest.clearAllMocks();
+
+  test('should return error message if password is invalid', () => {
+    const mockPasswordError = { passwordValidation: false, passwordMessage: "[ERROR] Invalid password" };
+
+    passwordValidator.mockReturnValue(mockPasswordError);
+    loginValidator.mockReturnValue({ loginValidation: true, loginMessage: "" });
+    userTagValidator.mockReturnValue({ userTagValidation: true, userTagMessage: "" });
+
+    const result = validateDataForLogin(mockUserData);
+
+    expect(result).toEqual({ menssage_error: mockPasswordError.passwordMessage });
   });
 
-  test("should return an error if password is invalid", () => {
-    const passwordMessage = "[ERROR] Invalid password";
-    passwordValidator.mockReturnValue({ passwordValidation: false, passwordMessage });
-    
-    const result = validateDataForLogin(userData);
+  test('should return error message if login validation fails', () => {
+    const mockPasswordValidation = { passwordValidation: true, passwordMessage: "" };
+    passwordValidator.mockReturnValue(mockPasswordValidation);
+    const mockLoginError = { loginValidation: false, loginMessage: "[ERROR] Invalid login" };
+    loginValidator.mockReturnValue(mockLoginError);
+    userTagValidator.mockReturnValue({ userTagValidation: true, userTagMessage: "" });
 
-    expect(result).toEqual({ menssage_error: passwordMessage });
+    const result = validateDataForLogin(mockUserData);
+
+    expect(result).toEqual({ menssage_error: mockLoginError.loginMessage });
   });
 
-  test("should return an error if login data is invalid", () => {
-    const loginMessage = "[ERROR] Invalid login data";
-    loginValidator.mockReturnValue({ loginValidation: false, loginMessage });
-    passwordValidator.mockReturnValue({ passwordValidation: true }); // Simula que la contraseña es válida
+  test('should return error message if userTag is invalid', () => {
+    const mockPasswordValidation = { passwordValidation: true, passwordMessage: "" };
+    passwordValidator.mockReturnValue(mockPasswordValidation);
+    loginValidator.mockReturnValue({ loginValidation: true, loginMessage: "" });
+    const mockUserTagError = { userTagValidation: false, userTagMessage: "[ERROR] Invalid userTag" };
+    userTagValidator.mockReturnValue(mockUserTagError);
 
-    const result = validateDataForLogin(userData);
+    const result = validateDataForLogin(mockUserData);
 
-    expect(result).toEqual({ menssage_error: loginMessage });
+    expect(result).toEqual({ menssage_error: mockUserTagError.userTagMessage });
   });
 
-  test("should return an error if userTag is invalid", () => {
-    const userTagMessage = "[ERROR] Invalid userTag";
-    userTagValidator.mockReturnValue({ userTagValidation: false, userTagMessage });
-    passwordValidator.mockReturnValue({ passwordValidation: true }); 
-    loginValidator.mockReturnValue({ loginValidation: true }); 
+  test('should return undefined if all validations pass', () => {
+    const mockPasswordValidation = { passwordValidation: true, passwordMessage: "" };
+    passwordValidator.mockReturnValue(mockPasswordValidation);
+    const mockLoginValidation = { loginValidation: true, loginMessage: "" };
+    loginValidator.mockReturnValue(mockLoginValidation);
+    const mockUserTagValidation = { userTagValidation: true, userTagMessage: "" };
+    userTagValidator.mockReturnValue(mockUserTagValidation);
 
-    const result = validateDataForLogin(userData);
-
-    expect(result).toEqual({ menssage_error: userTagMessage });
-  });
-
-  test("should return undefined if all validations pass", () => {
-    passwordValidator.mockReturnValue({ passwordValidation: true });
-    loginValidator.mockReturnValue({ loginValidation: true });
-    userTagValidator.mockReturnValue({ userTagValidation: true });
-
-    const result = validateDataForLogin(userData);
+    const result = validateDataForLogin(mockUserData);
 
     expect(result).toBeUndefined();
   });
