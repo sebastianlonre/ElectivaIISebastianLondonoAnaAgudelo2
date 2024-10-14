@@ -7,55 +7,54 @@ jest.mock("../../auth/domain/emailValidator");
 jest.mock("../../auth/domain/passwordValidator");
 jest.mock("../../auth/domain/registerValidator");
 
-describe("validateDataForRegister", () => {
-  const userData = {
-    userName: "Prototype4",
-    userLastName: "user4",
-    userTag: "UserPrototypeTag4",
-    email: "admin4@admin.com",
-    password: "CurrentPassword.4"
-  };
+describe('validateDataForRegister', () => {
+  const mockUserData = { email: "user@example.com", password: "password123" };
 
-  afterEach(() => {
-    jest.clearAllMocks();
+
+  test('should return error message if password is invalid', () => {
+    const mockPasswordError = { passwordValidation: false, passwordMessage: "[ERROR] Invalid password" };
+    passwordValidator.mockReturnValue(mockPasswordError);
+    registerValidator.mockReturnValue({ registerValidation: true, registerMessage: "" });
+    emailValidator.mockReturnValue({ emailValidation: true, emailMessage: "" });
+
+    const result = validateDataForRegister(mockUserData);
+
+    expect(result).toEqual({ menssage_error: mockPasswordError.passwordMessage });
   });
 
-  test("should return an error if password is invalid", () => {
-    const passwordMessage = "[ERROR] Invalid password";
-    passwordValidator.mockReturnValue({ passwordValidation: false, passwordMessage });
-    
-    const result = validateDataForRegister(userData);
+  test('should return error message if registration validation fails', () => {
+    const mockPasswordValidation = { passwordValidation: true, passwordMessage: "" };
+    passwordValidator.mockReturnValue(mockPasswordValidation);
+    const mockRegisterError = { registerValidation: false, registerMessage: "[ERROR] Invalid registration data" };
+    registerValidator.mockReturnValue(mockRegisterError);
+    emailValidator.mockReturnValue({ emailValidation: true, emailMessage: "" });
 
-    expect(result).toEqual({ menssage_error: passwordMessage });
+    const result = validateDataForRegister(mockUserData);
+
+    expect(result).toEqual({ menssage_error: mockRegisterError.registerMessage });
   });
 
-  test("should return an error if registration data is invalid", () => {
-    const registerMessage = "[ERROR] Invalid registration data";
-    registerValidator.mockReturnValue({ registerValidation: false, registerMessage });
-    passwordValidator.mockReturnValue({ passwordValidation: true }); // Simula que la contraseña es válida
+  test('should return error message if email is invalid', () => {
+    const mockPasswordValidation = { passwordValidation: true, passwordMessage: "" };
+    passwordValidator.mockReturnValue(mockPasswordValidation);
+    registerValidator.mockReturnValue({ registerValidation: true, registerMessage: "" });
+    const mockEmailError = { emailValidation: false, emailMessage: "[ERROR] Invalid email" };
+    emailValidator.mockReturnValue(mockEmailError);
 
-    const result = validateDataForRegister(userData);
+    const result = validateDataForRegister(mockUserData);
 
-    expect(result).toEqual({ menssage_error: registerMessage });
+    expect(result).toEqual({ menssage_error: mockEmailError.emailMessage });
   });
 
-  test("should return an error if email is invalid", () => {
-    const emailMessage = "[ERROR] Invalid email";
-    emailValidator.mockReturnValue({ emailValidation: false, emailMessage });
-    passwordValidator.mockReturnValue({ passwordValidation: true }); // Simula que la contraseña es válida
-    registerValidator.mockReturnValue({ registerValidation: true }); // Simula que los datos de registro son válidos
+  test('should return undefined if all validations pass', () => {
+    const mockPasswordValidation = { passwordValidation: true, passwordMessage: "" };
+    passwordValidator.mockReturnValue(mockPasswordValidation);
+    const mockRegisterValidation = { registerValidation: true, registerMessage: "" };
+    registerValidator.mockReturnValue(mockRegisterValidation);
+    const mockEmailValidation = { emailValidation: true, emailMessage: "" };
+    emailValidator.mockReturnValue(mockEmailValidation);
 
-    const result = validateDataForRegister(userData);
-
-    expect(result).toEqual({ menssage_error: emailMessage });
-  });
-
-  test("should return undefined if all validations pass", () => {
-    passwordValidator.mockReturnValue({ passwordValidation: true });
-    registerValidator.mockReturnValue({ registerValidation: true });
-    emailValidator.mockReturnValue({ emailValidation: true });
-
-    const result = validateDataForRegister(userData);
+    const result = validateDataForRegister(mockUserData);
 
     expect(result).toBeUndefined();
   });

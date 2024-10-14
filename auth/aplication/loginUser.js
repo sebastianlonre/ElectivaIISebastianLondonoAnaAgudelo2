@@ -26,7 +26,7 @@ const loginUser = async (userData) => {
     return { message: "[INFO] Login successful", token };
 
   } catch (error) {
-    return { message_error: "[ERROR] Login failed: " + error.message };
+    return { message_error: "[ERROR] Login failed: " + error };
   }
 };
 
