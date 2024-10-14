@@ -1,5 +1,5 @@
+const { loginUser } = require("../aplication/loginUser");
 const registerUser = require("../aplication/registerUser");
-const {loginUser} = require("../aplication/loginUser")
 
 const registerUserItem = async (request, response) => {
   const { userName, userLastName, userTag, email, password } = request.body;
@@ -31,7 +31,7 @@ const loginUserItem = async (req, res) => {
     }
 
     req.session.user = { userTag };
-    
+
     return res.status(200).json({
       message: result.message,
       token: result.token,
