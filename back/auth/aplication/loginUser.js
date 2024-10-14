@@ -1,6 +1,7 @@
 const User = require("../../users/domain/userModel");
 const { validateDataForLogin } = require("./validateDataForLogin");
 const { generateToken } = require("./generateJWT");
+const { findUser } = require("../../users/infraestructure/userAdapters");
 
 const loginUser = async (userData) => {
   const { userTag, password } = userData;
@@ -12,18 +13,28 @@ const loginUser = async (userData) => {
 
   try {
 
-    let user = await User.findOne({ userTag });
+    let user = await findUser(userTag);
 
     if (!user) {
       return { message_error: "[ERROR] The user does not exist" };
     }
+    console.log(user)
 
-    if (password !== user.password) {
+    if (password !== user.user.password) {
       return { message_error: "[ERROR] Incorrect password" };
     }
 
     const token = generateToken({ userData });
-    return { message: "[INFO] Login successful", token };
+    const userName = user.user.userName;
+    const userLastName = user.user.userLastName;
+
+    const userInfo = {
+      userName,
+      userLastName,
+      token
+    }
+
+    return { message: "[INFO] Login successful", userInfo };
 
   } catch (error) {
     return { message_error: "[ERROR] Login failed: " + error };

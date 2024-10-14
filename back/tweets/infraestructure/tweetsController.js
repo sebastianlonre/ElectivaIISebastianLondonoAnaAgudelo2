@@ -3,10 +3,12 @@ const { listTweetsByID } = require("../aplication/listTweetsByID");
 const { listTweetsInFeed } = require("../aplication/listTweetsInFeed");
 
 const newTweet = async (request, response) => {
-  const { userName, userTag, content } = request.body;
-  console.log(request.body);
+  const { content } = request.body;
 
-  const tweetData = { userName, userTag, content };
+  const userTag = request.session.user.userTag;
+  const userName = request.session.user.userName;
+
+  const tweetData = { userTag, userName, content };
 
   try {
     const result = await newTweets(tweetData);
@@ -38,12 +40,17 @@ const listTweetsByIDs = async (request, response) => {
 }
 
 const listTweetsInFeeds = async (request, response) => {
-  const { userTag } = request.body;
+
+  let userTag = null;
+
+  if (request.session && request.session.user) {
+    userTag = request.session.user.userTag;
+  }
 
   try {
     const result = await listTweetsInFeed(userTag);
 
-    if (result.menssage_error) {
+    if (result.message_error) {
       return response.status(400).json(result);
     }
 

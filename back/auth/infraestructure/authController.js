@@ -30,7 +30,10 @@ const loginUserItem = async (req, res) => {
       return res.status(400).json(result);
     }
 
-    req.session.user = { userTag };
+    const userName = result.userInfo.userName;
+    const userLastName = result.userInfo.userLastName;
+
+    req.session.user = { userTag, userName, userLastName };
 
     return res.status(200).json({
       message: result.message,
@@ -50,10 +53,19 @@ const logoutUserItem = async (req, res) => {
 
   req.session.destroy(err => {
     if (err) {
-      return res.status(500).json({ message_error: "[ERROR] Could not log out" });
+      return res.status(500).json({ message_error: "[ERROR] Could not log out" + err});
     }
     res.status(200).json({ message: "[INFO] Logout successful" });
   });
 };
 
-module.exports = { registerUserItem, loginUserItem, logoutUserItem };
+const checkAuthentication = (req, res, next) => {
+  if (req.session.user) {
+      next();
+  } else {
+      res.status(401).json({ message_error: "[ERROR] Not authenticated Users currently" });
+  }
+};
+
+
+module.exports = { registerUserItem, loginUserItem, logoutUserItem, checkAuthentication };
