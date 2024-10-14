@@ -24,7 +24,7 @@ describe('listTweetsInFeed', () => {
         const result = await listTweetsInFeed();
 
         expect(result).toEqual({
-          message: "Tweet return successfully for not user login",
+          message: "Tweet returned successfully for non-logged user",
           tweetsInFeed: mockTweets,
         });
       });
@@ -34,12 +34,12 @@ describe('listTweetsInFeed', () => {
 
       test('should return error message if user tweets retrieval fails', async () => {
         const mockUserTag = "@UserPrototypeTag";
-        listTweetsByID.mockResolvedValue({ menssage_error: "[ERROR] User tweets not found" });
+        listTweetsByID.mockResolvedValue({ message_error: "[ERROR] User tweets not found" });
 
         const result = await listTweetsInFeed(mockUserTag);
 
         expect(result).toEqual({
-          menssage_error: "[ERROR] User tweets not found",
+          message_error: "[ERROR] User tweets not found",
         });
       });
 
@@ -51,7 +51,7 @@ describe('listTweetsInFeed', () => {
         const result = await listTweetsInFeed(mockUserTag);
 
         expect(result).toEqual({
-          menssage_error: "[ERROR] Followings not found",
+          message_error: "[ERROR] Followings not found",
         });
       });
 
@@ -101,7 +101,7 @@ describe('listTweetsInFeed', () => {
         const result = await listTweetsInFeed(mockUserTag);
 
         expect(result).toEqual({
-          menssage_error: "Failed to search tweetsError: [ERROR] Retrieval error",
+          message_error: "Failed to search tweets: Error: [ERROR] Retrieval error",
         });
       });
     });

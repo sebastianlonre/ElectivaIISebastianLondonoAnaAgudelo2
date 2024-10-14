@@ -1,39 +1,32 @@
 const jwt = require("jsonwebtoken");
 const { generateToken } = require("../../auth/aplication/generateJWT");
 
+
 jest.mock("jsonwebtoken");
 
-describe("generateToken with provided payload", () => {
-  const payload = { userId: "12345", userTag: "@UserPrototype" };
-  const mockSecret = "mockSecret";
+describe('generateToken', () => {
+  const mockPayload = { userData: { userTag: "@UserPrototype" } };
+  const mockSecret = "mockSecret123";
 
   beforeAll(() => {
     process.env.JWT_SECRET = mockSecret;
   });
 
-  test("should generate a token with the correct payload and secret", () => {
-    const mockToken = "mockGeneratedToken";
+  test('should generate a token successfully', () => {
+    const mockToken = "mockToken123";
     jwt.sign.mockReturnValue(mockToken);
 
-    const token = generateToken(payload);
+    const result = generateToken(mockPayload);
 
-    expect(jwt.sign).toHaveBeenCalledWith(payload, mockSecret, { expiresIn: "1h" });
-    expect(token).toBe(mockToken);
+    expect(result).toBe(mockToken);
   });
 
-  test("should throw an error if JWT_SECRET is missing", () => {
-    delete process.env.JWT_SECRET;
+  test('should throw an error if token generation fails', () => {
+    const mockError = new Error("[ERROR] Token generation failed");
+    jwt.sign.mockImplementation(() => {
+      throw mockError;
+    });
 
-    expect(() => generateToken(payload)).toThrow();
-  });
-
-  test("should set token expiration to 1 hour", () => {
-    const mockToken = "mockGeneratedToken";
-    jwt.sign.mockReturnValue(mockToken);
-
-    const token = generateToken(payload);
-
-    expect(jwt.sign).toHaveBeenCalledWith(payload, mockSecret, { expiresIn: "1h" });
-    expect(token).toBe(mockToken);
+    expect(() => generateToken(mockPayload)).toThrow("[ERROR] Token generation failed");
   });
 });

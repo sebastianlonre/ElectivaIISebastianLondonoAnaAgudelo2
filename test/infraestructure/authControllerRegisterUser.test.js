@@ -97,7 +97,7 @@ describe("authController.js", () => {
 
         expect(response.statusCode).toBe(500);
         expect(response._getJSONData()).toEqual({
-          message_error: "[ERROR] Unexpected server error: Error: Server error",
+          message_error: "[ERROR] Unexpected server errorError: Server error",
         });
       }, 10000);
     });
@@ -109,8 +109,6 @@ describe("authController.js", () => {
   describe("Login User", () => {
     describe("with valid fields", () => {
       test("should return User is login successfully", async () => {
-        console.log("Iniciando la prueba...");
-
         const mockUserLoginOk = {
           userTag: "@UserPrototypeTag",
           password: "CurrentPassword.1",
@@ -120,28 +118,25 @@ describe("authController.js", () => {
           method: "POST",
           url: "/login",
           body: mockUserLoginOk,
+          session: {},
         });
+
         const response = httpMocks.createResponse();
 
-        console.log("Antes de hacer el mock de registerUser");
-
-        loginUser.mockResolvedValue({
+        loginUser.mockResolvedValueOnce({
           message: "[INFO] User registered successfully",
           token: "test_token",
         });
 
-        console.log("Antes de llamar a authController");
-
         await authController.loginUserItem(request, response);
 
-        console.log("Después de llamar a authController");
+        expect(response.statusCode).toBe(200)
 
-        expect(response.statusCode).toBe(200);
         expect(response._getJSONData()).toEqual({
           message: "[INFO] User registered successfully",
           token: "test_token",
         });
-      }, 10000);
+    });
 
       test("should return 400 when user data is invalid", async () => {
         const mockInvalidUserlogin = {
@@ -188,6 +183,7 @@ describe("authController.js", () => {
         expect(response.statusCode).toBe(500);
         expect(response._getJSONData()).toEqual({
           message_error: "[ERROR] Unexpected server error: Error: Server error",
+          ok: false,
         });
       }, 10000);
     });

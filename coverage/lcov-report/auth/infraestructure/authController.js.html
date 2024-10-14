@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">69.23% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>18/26</span>
+                <span class='fraction'>26/26</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">66.66% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>4/6</span>
+                <span class='fraction'>6/6</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">75% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>3/4</span>
+                <span class='fraction'>4/4</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">69.23% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>18/26</span>
+                <span class='fraction'>26/26</span>
             </div>
         
             
@@ -61,7 +61,7 @@
             </div>
         </template>
     </div>
-    <div class='status-line medium'></div>
+    <div class='status-line high'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -144,24 +144,24 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -179,8 +179,8 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span></td><td class="text"><pre class="prettyprint lang-js">const registerUser = require("../aplication/registerUser");
-const {loginUser} = require("../aplication/loginUser")
+<span class="cline-any cline-yes">1x</span></td><td class="text"><pre class="prettyprint lang-js">const { loginUser } = require("../aplication/loginUser");
+const registerUser = require("../aplication/registerUser");
 &nbsp;
 const registerUserItem = async (request, response) =&gt; {
   const { userName, userLastName, userTag, email, password } = request.body;
@@ -201,25 +201,25 @@ const registerUserItem = async (request, response) =&gt; {
   }
 };
 &nbsp;
-const loginUserItem = <span class="fstat-no" title="function not covered" >as</span>ync (req, res) =&gt; {
-  const { userTag, password } = <span class="cstat-no" title="statement not covered" >req.body;</span>
+const loginUserItem = async (req, res) =&gt; {
+  const { userTag, password } = req.body;
 &nbsp;
-<span class="cstat-no" title="statement not covered" >  try {</span>
-    const result = <span class="cstat-no" title="statement not covered" >await loginUser({ userTag, password });</span>
+  try {
+    const result = await loginUser({ userTag, password });
 &nbsp;
-<span class="cstat-no" title="statement not covered" >    if (result.message_error) {</span>
-<span class="cstat-no" title="statement not covered" >      return res.status(400).json(result);</span>
+    if (result.message_error) {
+      return res.status(400).json(result);
     }
 &nbsp;
-<span class="cstat-no" title="statement not covered" >    req.session.user = { userTag };</span>
-    
-<span class="cstat-no" title="statement not covered" >    return res.status(200).json({</span>
+    req.session.user = { userTag };
+&nbsp;
+    return res.status(200).json({
       message: result.message,
       token: result.token,
     });
 &nbsp;
   } catch (error) {
-<span class="cstat-no" title="statement not covered" >    return res.status(500).json({</span>
+    return res.status(500).json({
       ok: false,
       message_error: "[ERROR] Unexpected server error: " + error,
     });
@@ -244,7 +244,7 @@ module.exports = { registerUserItem, loginUserItem, logoutUserItem };</pre></td>
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-10-12T14:38:48.548Z
+                at 2024-10-14T02:39:03.906Z
             </div>
         <script src="../../prettify.js"></script>
         <script>
