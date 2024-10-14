@@ -7,27 +7,29 @@ const listTweetsInFeed = async (userTag) => {
 
   if (!userTag) {
     tweetsInFeed = await Tweet.find().sort({ createTweetAt: -1 });
-    return { message: "Tweet return successfully for not user login", tweetsInFeed };
+    return { message: "Tweet returned successfully for non-logged user", tweetsInFeed };
   }
 
   try {
     let userActiveTweets = await listTweetsByID(userTag);
     let followingsTweets = [];
 
-    if (userActiveTweets.menssage_error) {
-      return { menssage_error: userActiveTweets.menssage_error };
+    if (userActiveTweets.message_error) {
+      return { message_error: userActiveTweets.message_error };
     }
 
     const followings = await getFollowings(userTag);
 
+    console.log(followings)
+
     if (followings.message_error) {
-      return { menssage_error: followings.message_error };
+      return { message_error: followings.message_error };
     } else {
       for (const tag of followings.followingTags) {
         const tweets = await listTweetsByID(tag);
 
         if (tweets.message_error) {
-          return { menssage_error: tweets.message_error };
+          return { message_error: tweets.message_error };
         }
 
         followingsTweets.push(...tweets.tweets);
@@ -39,7 +41,7 @@ const listTweetsInFeed = async (userTag) => {
 
     return { message: "Tweets retrieved successfully", tweetsInFeed };
   } catch (error) {
-    return { menssage_error: "Failed to search tweets" + error };
+    return { message_error: "Failed to search tweets: " + error };
   }
 };
 

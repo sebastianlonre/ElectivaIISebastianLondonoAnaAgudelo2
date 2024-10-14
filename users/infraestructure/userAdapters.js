@@ -21,7 +21,7 @@ const getFollowings = async (userTag) => {
     const { menssage_error, followingTags } = await getFollowingsByTag(userTag);
 
     if (menssage_error) {
-      return { menssage_error };
+      return { message_error: menssage_error};
     }
 
     return { followingTags };
