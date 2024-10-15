@@ -23,6 +23,10 @@ const registerUserItem = async (request, response) => {
 const loginUserItem = async (req, res) => {
   const { userTag, password } = req.body;
 
+  if(req.session.user){
+    return res.status(400).json({message_error: `${req.session.user.userTag} already logged, close the session firts`})
+  }
+
   try {
     const result = await loginUser({ userTag, password });
 
@@ -34,6 +38,9 @@ const loginUserItem = async (req, res) => {
     const userLastName = result.userInfo.userLastName;
 
     req.session.user = { userTag, userName, userLastName };
+
+    req.session.lastActivity = Date.now();
+    req.session.cookie.expires = new Date(Date.now() + (2 * 60 * 60 * 1000));
 
     return res.status(200).json({
       message: result.message,
@@ -51,6 +58,10 @@ const loginUserItem = async (req, res) => {
 
 const logoutUserItem = async (req, res) => {
 
+  if(!req.session.user){
+    return res.status(400).json({message_error: "Not user logged"})
+  }
+
   req.session.destroy(err => {
     if (err) {
       return res.status(500).json({ message_error: "[ERROR] Could not log out" + err});
@@ -67,5 +78,29 @@ const checkAuthentication = (req, res, next) => {
   }
 };
 
+const sessionRenewalMiddleware = (req, res, next) => {
+  if (req.session && req.session.user) {
+    const now = Date.now();
+    const timeToActivity = 10 * 60 * 1000;
+    const sessionExpiry = 2 * 60 * 60 * 1000;
 
-module.exports = { registerUserItem, loginUserItem, logoutUserItem, checkAuthentication };
+    if (now - req.session.lastActivity > sessionExpiry) {
+      req.session.destroy(err => {
+        if (err) {
+          return res.status(500).json({ message_error: "[ERROR] Could not log out" + err });
+        }
+        return res.status(401).json({ message_error: "[ERROR] Session has expired, please log in again" });
+      });
+      return;
+    }
+
+    if (now - req.session.lastActivity < timeToActivity) {
+      req.session.lastActivity = now;
+      req.session.cookie.expires = new Date(Date.now() + sessionExpiry);
+    }
+  }
+  next();
+};
+
+
+module.exports = { registerUserItem, loginUserItem, logoutUserItem, checkAuthentication, sessionRenewalMiddleware };
