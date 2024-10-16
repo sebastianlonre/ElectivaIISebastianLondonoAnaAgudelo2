@@ -12,7 +12,7 @@ const getFollowerByTag = async (userTag) => {
       return { menssage_error: user.message_error }
     }
 
-    let followers = await Followers.find({ _id: { $in: user.user.followers } })
+    let followers = await Followers.find({ _id: { $in: user.user.followers } });
 
     if (!followers || followers.length === 0) {
       return { menssage_error: "No followers found for this user" };
