@@ -1,12 +1,14 @@
-import { Flex, Text, Button } from "@radix-ui/themes";
+import { Flex, Text, Button, Box } from "@radix-ui/themes";
+import { NewTweetView } from "./view/NewTweetView";
 
 export const HomePageP = () => {
   return (
     <>
-    <Flex direction="column" gap="2">
-        <Text>Hello from Radix Themes :</Text>
-        <Button variant="solid">Let's go</Button>
-    </Flex>
+      <Flex justify="center">
+        <Flex width="65%">
+          <NewTweetView/>
+        </Flex>
+      </Flex>
     </>
   )
 }
