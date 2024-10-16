@@ -5,7 +5,7 @@ export const HomePageP = () => {
     <>
     <Flex direction="column" gap="2">
         <Text>Hello from Radix Themes :</Text>
-        <Button variant="soft">Let's go</Button>
+        <Button variant="solid">Let's go</Button>
     </Flex>
     </>
   )
