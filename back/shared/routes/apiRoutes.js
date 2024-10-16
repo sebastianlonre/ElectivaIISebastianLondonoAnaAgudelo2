@@ -1,18 +1,10 @@
 const express = require("express");
 const router = express.Router();
 const { newTweet, listTweetsByIDs, listTweetsInFeeds } = require("../../tweets/infraestructure/tweetsController");
-const { registerUserItem, loginUserItem, logoutUserItem } = require("../../auth/infraestructure/authController");
+const { registerUserItem, loginUserItem, logoutUserItem, checkAuthentication } = require("../../auth/infraestructure/authController");
 const { followUsers } = require("../../social/infraestructure/socialController");
 const { unfollowUsers } = require("../../social/infraestructure/socialController");
 const { findUsersByTag, getFollowers, getFollwings } = require("../../users/infraestructure/userController");
-
-const checkAuthentication = (req, res, next) => {
-    if (req.session.user) {
-        next();
-    } else {
-        res.status(401).json({ message_error: "[ERROR] Not authenticated Users currently" });
-    }
-};
 
 /**
  * @swagger
@@ -53,9 +45,7 @@ const checkAuthentication = (req, res, next) => {
  *       500:
  *         description: Internal server error
  */
-router.post("/tweets", newTweet);
-
-
+router.post("/tweets", checkAuthentication, newTweet);
 
 /**
  * @swagger
@@ -190,24 +180,6 @@ router.post('/logout', logoutUserItem);
 
 /**
  * @swagger
- * /api/protected-route:
- *   get:
- *     summary: Access a protected route
- *     tags: [Auth]
- *     security:
- *       - bearerAuth: []
- *     responses:
- *       200:
- *         description: You are authenticated
- *       401:
- *         description: Not authenticated
- */
-router.get('/protected-route', checkAuthentication, (req, res) => {
-    res.json({ message: "You are authenticated", user: req.session.user.userTag });
-});
-
-/**
- * @swagger
  * tags:
  *   name: Social
  *   description: Operations related to following users
@@ -240,7 +212,7 @@ router.get('/protected-route', checkAuthentication, (req, res) => {
  *       404:
  *         description: User to follow not found
  */
-router.put("/social/follow", followUsers);
+router.put("/social/follow", checkAuthentication,followUsers);
 
 
 /**
@@ -270,7 +242,7 @@ router.put("/social/follow", followUsers);
  *       404:
  *         description: User to follow not found
  */
-router.delete("/social/unfollow", unfollowUsers);
+router.delete("/social/unfollow", checkAuthentication, unfollowUsers);
 
 /**
  * @swagger
@@ -321,7 +293,7 @@ router.get("/:userTag", findUsersByTag);
  *       404:
  *         description: User not found
  */
-router.get("/:userTag/followers", getFollowers);
+router.get("/:userTag/followers", checkAuthentication,getFollowers);
 
 /**
  * @swagger
@@ -343,6 +315,6 @@ router.get("/:userTag/followers", getFollowers);
  *       404:
  *         description: User not found
  */
-router.get("/:userTag/followings", getFollwings);
+router.get("/:userTag/followings", checkAuthentication, getFollwings);
 
 module.exports = router;

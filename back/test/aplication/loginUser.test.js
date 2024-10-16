@@ -1,16 +1,16 @@
 const { generateToken } = require("../../auth/aplication/generateJWT");
 const { loginUser } = require("../../auth/aplication/loginUser");
 const { validateDataForLogin } = require("../../auth/aplication/validateDataForLogin");
-const User = require("../../users/domain/userModel");
+const { findUser } = require("../../users/infraestructure/userAdapters");
 
-jest.mock("../../users/domain/userModel");
+jest.mock("../../users/infraestructure/userAdapters");
 jest.mock("../../auth/aplication/validateDataForLogin");
 jest.mock("../../auth/aplication/generateJWT");
 
+const mockUserData = { userTag: "@UserPrototype", password: "password123" };
+
 describe('loginUser', () => {
   describe('Validating user login', () => {
-    const mockUserData = { userTag: "@UserPrototype", password: "password123" };
-
     test('should return error message if validation fails', async () => {
       const mockValidationError = { menssage_error: "[ERROR] Invalid data" };
       validateDataForLogin.mockReturnValue(mockValidationError);
@@ -24,7 +24,7 @@ describe('loginUser', () => {
 
     test('should return error message if user does not exist', async () => {
       validateDataForLogin.mockReturnValue(null);
-      User.findOne.mockResolvedValue(null);
+      findUser.mockResolvedValue(null);
 
       const result = await loginUser(mockUserData);
 
@@ -34,9 +34,9 @@ describe('loginUser', () => {
     });
 
     test('should return error message if password is incorrect', async () => {
-      const mockUser = { userTag: mockUserData.userTag, password: "wrongPassword" };
+      const mockUser = { user: { userTag: mockUserData.userTag, password: "wrongPassword", userName: "John", userLastName: "Doe" } };
       validateDataForLogin.mockReturnValue(null);
-      User.findOne.mockResolvedValue(mockUser);
+      findUser.mockResolvedValue(mockUser);
 
       const result = await loginUser(mockUserData);
 
@@ -45,26 +45,30 @@ describe('loginUser', () => {
       });
     });
 
-    test('should return success message and token if login is successful', async () => {
-      const mockUser = { userTag: mockUserData.userTag, password: mockUserData.password };
+    test('should return success message and user info if login is successful', async () => {
+      const mockUser = { user: { userTag: mockUserData.userTag, password: mockUserData.password, userName: "John", userLastName: "Doe" } };
       const mockToken = "mockToken123";
 
       validateDataForLogin.mockReturnValue(null);
-      User.findOne.mockResolvedValue(mockUser);
+      findUser.mockResolvedValue(mockUser);
       generateToken.mockReturnValue(mockToken);
 
       const result = await loginUser(mockUserData);
 
       expect(result).toEqual({
         message: "[INFO] Login successful",
-        token: mockToken,
+        userInfo: {
+          userName: "John",
+          userLastName: "Doe",
+          token: mockToken,
+        },
       });
     });
 
     test('should return error message on unexpected error', async () => {
       const mockError = new Error("[ERROR] Unexpected error");
       validateDataForLogin.mockReturnValue(null);
-      User.findOne.mockImplementation(() => {
+      findUser.mockImplementation(() => {
         throw mockError;
       });
 

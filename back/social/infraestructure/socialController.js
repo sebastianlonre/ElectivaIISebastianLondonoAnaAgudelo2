@@ -2,7 +2,8 @@ const { followUser } = require("../aplication/followUser");
 const { unFollowUser } = require("../aplication/unFollowUser");
 
 const followUsers = async (request, response) => {
-  const { userTag, userToFollowTag } = request.body;
+  const { userToFollowTag } = request.body;
+  const userTag = request.session.user.userTag;
 
   try {
     const result = await followUser(userTag, userToFollowTag);
@@ -18,7 +19,8 @@ const followUsers = async (request, response) => {
 };
 
 const unfollowUsers = async (request, response) => {
-  const { userTag, userToUnfollowTag } = request.body;
+  const { userToUnfollowTag } = request.body;
+  const userTag = request.session.user.userTag;
 
   try {
     const result = await unFollowUser(userTag, userToUnfollowTag);

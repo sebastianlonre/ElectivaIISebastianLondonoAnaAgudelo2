@@ -7,6 +7,7 @@ const session = require('express-session');
 const swaggerUi = require('swagger-ui-express');
 const openapiSpecification = require('./swagger/swagger')
 const cors = require('cors');
+const { sessionRenewalMiddleware } = require('./auth/infraestructure/authController');
 
 
 const { PORT, MONGO_DB, DB_NAME, SESSION_SECRET } = process.env;
@@ -23,8 +24,13 @@ app.use(session({
   resave: false,
   saveUninitialized: false,
   store: MongoStore.create({ mongoUrl: `${MONGO_DB}${DB_NAME}` }),
-  cookie: { secure: false }
+  cookie: {
+    secure: false,
+    maxAge: 2 * 60 * 60 * 1000
+  }
 }));
+
+app.use(sessionRenewalMiddleware);
 
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(openapiSpecification))
 
