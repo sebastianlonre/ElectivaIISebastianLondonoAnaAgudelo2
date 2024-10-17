@@ -2,30 +2,23 @@ import { Flex, TextField, Box, Button, Text } from '@radix-ui/themes'
 import React from 'react'
 import "../../../Styles/RegisterStyles/registerStyle.css"
 
-export const RegisterView = () => {
+
+export const LoginView = () => {
   return (
     <>
       <Flex width="80vw" height="80vh" className='flex-border'>
         <Flex width="50%">
           <img
-            src='.\src\assets\register_wallpaper.jpg'
+            src='.\src\assets\login_wallpaper.jpg'
             className='background_image'
            />
         </Flex>
-        <Flex width="50%" p="8" justify="center">
+
+        <Flex width="50%" p="8" justify="center" align="center">
           <Box width="90%">
-            <Box>
-              <TextField.Root  placeholder="Your name" size="3">
-
-              </TextField.Root>
-            </Box>
-
-            <Box pt="6">
-              <TextField.Root  placeholder="Your last name" size="3">
-
-              </TextField.Root>
-            </Box>
-
+            <Text size="6">
+              Login
+            </Text>
             <Box pt="6">
               <TextField.Root  placeholder="User Tag" size="3">
 
@@ -33,13 +26,7 @@ export const RegisterView = () => {
             </Box>
 
             <Box pt="6">
-              <TextField.Root  placeholder="Your email" size="3" type='email'>
-
-              </TextField.Root>
-            </Box>
-
-            <Box pt="6">
-              <TextField.Root  placeholder="And your password" size="3" type='password'>
+              <TextField.Root  placeholder="Password" size="3" type='password'>
 
               </TextField.Root>
             </Box>
@@ -51,7 +38,7 @@ export const RegisterView = () => {
               <Flex pl="2">
                 <button>
                   <Text size="1" color='gray'>
-                    Already have an account? Sign in.
+                    Don't have an account? Sign up.
                   </Text>
                 </button>
               </Flex>
