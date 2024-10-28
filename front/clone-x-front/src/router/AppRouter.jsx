@@ -3,6 +3,7 @@ import { HomePageP } from "../pages/homePages/homePageP";
 import { NavBar } from "../pages/UI/NavBar";
 import { Register } from "../pages/register/Register";
 import { Login } from "../pages/login/Login";
+import { Profile } from "../pages/profile/Profile";
 
 export const AppRouter = () => {
 
@@ -20,6 +21,8 @@ export const AppRouter = () => {
         <Route path="/register" element={<Register />} />
 
         <Route path="/login" element={<Login/>}/>
+
+        <Route path="/profile/:usertag" element={<Profile/>}/>
 
         <Route path="*" element={<HomePageP />} />
       </Routes>

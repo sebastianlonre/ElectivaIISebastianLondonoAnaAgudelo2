@@ -1,0 +1,22 @@
+.container_info{
+  background-color: rgb(30, 34, 32) ;
+}
+
+.background_imageP{
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.avatar_style{
+  position: absolute;
+  transform: translate(40%, -185%);
+  border: 3px solid rgb(30, 34, 32);
+}
+
+.item_button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  border-left: 10px;
+}
