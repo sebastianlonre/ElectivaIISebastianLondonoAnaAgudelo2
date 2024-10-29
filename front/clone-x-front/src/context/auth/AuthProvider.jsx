@@ -26,7 +26,7 @@ export const AuthProvider = ({ children }) => {
     try {
 
       const response = await api.post('/login', { userTag, password });
-      const { token, message } = response.data;
+      const { message } = response.data;
       const userInfoResponse = await api.get(`/${userTag}`);
       const userInfo = userInfoResponse.data;
 
