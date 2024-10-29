@@ -1,10 +1,16 @@
-import { Text } from "@radix-ui/themes";
+
+import { Spinner, Flex } from "@radix-ui/themes";
 import { ViewTweets } from "./ViewTweets";
 
 export const GrindTweets = ({ tweetData }) => {
 
   if (!tweetData || tweetData.length === 0) {
-    return <Text>loading...</Text>;
+    return (
+      <>
+      <Flex justify="center" align="center">
+        <Spinner size="3"/>
+      </Flex>
+      </>);
   }
 
   return (

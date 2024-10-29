@@ -3,10 +3,6 @@ import '../../../Styles/profileStyles/profileStyles.css'
 
 export const ProfileView =({userData}) => {
 
-  if (!userData || !userData.user) {
-    return <Text>loading...</Text>;
-  }
-
   const user = userData.user;
 
   return (

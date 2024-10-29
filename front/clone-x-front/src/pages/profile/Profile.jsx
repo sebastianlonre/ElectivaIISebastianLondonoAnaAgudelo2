@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { ProfileView } from './view/ProfileView';
-import { Flex, Box, Text } from '@radix-ui/themes';
-import { ViewTweets } from '../../components/Tweets/ViewTweets';
+import { Flex, Box, Text, Spinner } from '@radix-ui/themes';
+import { GrindTweets } from '../../components/Tweets/GrindTweets'
 import { useParams } from 'react-router-dom';
 import { userDataRequest } from '../../api/calls/userRequest';
 
@@ -24,6 +24,15 @@ export const Profile = () => {
     fetchUserData();
   }, [usertag]);
 
+  if (!userData || !userData.user) {
+    return (
+    <>
+    <Flex justify="center" align="center">
+      <Spinner size="3"/>
+    </Flex>
+    </>);
+  }
+
   return (
     <>
       <Flex justify="center">
@@ -33,6 +42,7 @@ export const Profile = () => {
           ) : (
             <>
              <ProfileView userData={userData}/>
+             <GrindTweets tweetData={userData.tweets}/>
             </>
           )}
         </Box>
