@@ -11,7 +11,7 @@ export const NewTweetView = () => {
           <Avatar fallback="U"/>
         </Flex>
         <Box width="85%" p="5">
-          <TextArea placeholder="What's on your mind?..." size="3" variant="classic" />
+          <TextArea placeholder="What's on your mind?..." size="3" variant="classic"  maxLength="200"/>
           <Flex pt="3" justify="end">
             <Button size="2">
               post

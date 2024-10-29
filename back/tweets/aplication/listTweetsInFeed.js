@@ -20,7 +20,10 @@ const listTweetsInFeed = async (userTag) => {
 
     const followings = await getFollowings(userTag);
 
-    console.log(followings)
+    if(followings.message_error === 'No followings found for this user'){
+      tweetsInFeed = await Tweet.find().sort({ createTweetAt: -1 });
+      return { message: "Tweet returned successfully for non-logged user", tweetsInFeed };
+    }
 
     if (followings.message_error) {
       return { message_error: followings.message_error };
