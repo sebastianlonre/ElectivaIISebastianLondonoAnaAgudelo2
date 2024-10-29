@@ -30,8 +30,6 @@ export const AuthProvider = ({ children }) => {
       const userInfoResponse = await api.get(`/${userTag}`);
       const userInfo = userInfoResponse.data;
 
-      console.log(userInfo);
-
       localStorage.setItem('user', JSON.stringify(userInfo));
 
       dispatch({

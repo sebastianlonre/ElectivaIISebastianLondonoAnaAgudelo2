@@ -1,7 +1,14 @@
 import { Avatar, Flex, Text } from "@radix-ui/themes"
 import '../../../Styles/profileStyles/profileStyles.css'
 
-export const ProfileView = (userData) => {
+export const ProfileView =({userData}) => {
+
+  if (!userData || !userData.user) {
+    return <Text>loading...</Text>;
+  }
+
+  const user = userData.user;
+
   return (
     <>
       <Flex width="100%" height="300px" className="container_info" direction="column">
@@ -14,20 +21,20 @@ export const ProfileView = (userData) => {
         <Flex width="100%" height="50%">
           <Flex pl="18%" pt="5" direction="column">
             <Text>
-              @UserTag
+              {user.userTag}
             </Text>
             <Text weight="bold" size="4">
-              User complete name
+              {user.userName + " "+user.userLastName}
             </Text>
             <Flex pt="4" gap="4">
             <button className="item_button">
               <Text>
-                followers 0
+                followers {user.followers.length}
               </Text>
             </button>
             <button className="item_button">
               <Text>
-                followings 0
+                followings {user.followings.length}
               </Text>
             </button>
 
@@ -36,7 +43,7 @@ export const ProfileView = (userData) => {
         </Flex>
 
       </Flex>
-      <Avatar size="7" variant="solid" radius="full"className="avatar_style" fallback="A">
+      <Avatar size="7" variant="solid" radius="full"className="avatar_style" fallback={user.userTag?.charAt(1).toUpperCase() || 'U'}>
         </Avatar>
     </>
   )
