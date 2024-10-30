@@ -58,13 +58,28 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
+  const refreshUserInfo = async (userTag) => {
+    try {
+      const userInfoResponse = await api.get(`/${userTag}`);
+      const updatedUserInfo = userInfoResponse.data;
+      dispatch({
+        type: authTypes.refreshUser,
+        payload: updatedUserInfo
+      });
+    } catch (error) {
+      console.error("Error al actualizar información del usuario:", error.response?.data?.message_error || error.message);
+    }
+  };
+
+
 
   return (
     <AuthContext.Provider
       value={{
         ...authState,
         login,
-        logout
+        logout,
+        refreshUserInfo
       }}
     >
       {children}
