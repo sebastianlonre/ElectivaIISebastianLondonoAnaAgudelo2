@@ -10,6 +10,11 @@ export const NavBarView = () => {
   const { user, logout } = useContext(AuthContext);
   const navigate = useNavigate();
 
+  const handleLogout = () => {
+    logout();
+    navigate('/login');
+  };
+
   return (
     <Box height="64px" className="container">
       <Flex height="100%">
@@ -42,10 +47,9 @@ export const NavBarView = () => {
                 <DropdownMenu.Content>
                   <DropdownMenu.Item onClick={() => navigate(`/profile/${user.user.userTag}`)}>My profile</DropdownMenu.Item>
                   <DropdownMenu.Separator />
-                  <DropdownMenu.Item onClick={logout}>logout</DropdownMenu.Item>
+                  <DropdownMenu.Item onClick={handleLogout}>logout</DropdownMenu.Item>
                 </DropdownMenu.Content>
               </DropdownMenu.Root>
-
             </Flex>
           </>
         ) : (
