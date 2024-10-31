@@ -1,34 +1,48 @@
 import { Avatar, Flex, Text, Button } from "@radix-ui/themes";
 import '../../../Styles/profileStyles/profileStyles.css';
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../../context/auth/AuthContext";
 import { followUser, unfollowUser } from "../../../api/calls/socialRequest";
+import { useModal } from "../../../hooks/UseModals";
+import { SocialModal } from "../../../components/modals/SocialModal";
 
 
 export const ProfileView = ({ userData }) => {
   const userInPage = userData.user;
   const { user, refreshUserInfo } = useContext(AuthContext);
   const [error, setError] = useState(null);
-
+  const { isOpen, openModal, closeModal } = useModal();
+  const [dataModal, setdataModal] = useState('')
   const isFollowing = user.followings.some(following => following.followingTag === userInPage.userTag);
+
 
   const handleFollow = async () => {
     const response = await followUser(userInPage.userTag);
-    if (response.ok) {
-      await refreshUserInfo(user.user.userTag);
-    }else{
+    await refreshUserInfo(user.user.userTag);
+    if (!response.ok) {
       setError(response.message)
     }
   };
 
   const handleUnfollow = async () => {
     const response = await unfollowUser(userInPage.userTag);
+    await refreshUserInfo(user.user.userTag);
     if(!response.ok){
       setError(response.message);
-    }else{
-      await refreshUserInfo(user.user.userTag);
     }
   };
+
+  const handleOpenFollowers = () => {
+    setdataModal(userData.followers);
+    openModal();
+  };
+
+  const handleOpenFollowings = () => {
+    setdataModal(userData.followings);
+    openModal();
+  };
+
+
 
   return (
     <>
@@ -49,12 +63,12 @@ export const ProfileView = ({ userData }) => {
             </Text>
 
             <Flex pt="4" gap="4">
-              <button className="item_button">
+              <button className="item_button" onClick={handleOpenFollowers}>
                 <Text>
                   followers {userInPage.followers.length}
                 </Text>
               </button>
-              <button className="item_button">
+              <button className="item_button" onClick={handleOpenFollowings}>
                 <Text>
                   followings {userInPage.followings.length}
                 </Text>
@@ -73,6 +87,8 @@ export const ProfileView = ({ userData }) => {
       </Flex>
       <Avatar size="7" variant="solid" radius="full" className="avatar_style" fallback={userInPage.userTag?.charAt(1).toUpperCase() || 'U'}>
       </Avatar>
+      <SocialModal isOpen={isOpen} onClose={closeModal} data={dataModal}>
+      </SocialModal>
     </>
   );
 };

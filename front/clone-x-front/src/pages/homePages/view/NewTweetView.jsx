@@ -14,7 +14,6 @@ export const NewTweetView = () => {
     const { message, ok } = await newTweet(content);
 
     if (!ok) {
-      e.preventDefault();
       setError(message || 'error to publish tweet');
     }
   };

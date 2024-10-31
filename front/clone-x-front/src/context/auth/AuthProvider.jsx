@@ -14,6 +14,7 @@ const init = () => {
   };
 };
 
+
 export const AuthProvider = ({ children }) => {
   const [authState, dispatch] = useReducer(AuthReducer, initialState, init);
 

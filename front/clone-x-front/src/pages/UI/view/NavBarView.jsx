@@ -12,7 +12,7 @@ export const NavBarView = () => {
 
   const handleLogout = () => {
     logout();
-    navigate('/');
+    navigate('/login');
   };
 
   return (
