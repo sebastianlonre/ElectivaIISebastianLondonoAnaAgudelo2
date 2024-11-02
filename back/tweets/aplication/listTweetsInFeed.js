@@ -2,12 +2,18 @@ const { getFollowings } = require('../../users/infraestructure/userAdapters');
 const Tweet = require('../domain/tweetsModel');
 const { listTweetsByID } = require('./listTweetsByID');
 
+const feedCache = new Map(); 
+
 const listTweetsInFeed = async (userTag) => {
   let tweetsInFeed = [];
 
   if (!userTag) {
     tweetsInFeed = await Tweet.find().sort({ createTweetAt: -1 });
     return { message: "Tweet returned successfully for non-logged user", tweetsInFeed };
+  }
+
+  if (feedCache.has(userTag)) {
+    return { message: "Tweets retrieved from cache", tweetsInFeed: feedCache.get(userTag) };
   }
 
   try {
@@ -20,7 +26,7 @@ const listTweetsInFeed = async (userTag) => {
 
     const followings = await getFollowings(userTag);
 
-    if(followings.message_error === 'No followings found for this user'){
+    if (followings.message_error === 'No followings found for this user') {
       tweetsInFeed = await Tweet.find().sort({ createTweetAt: -1 });
       return { message: "Tweet returned successfully for non-logged user", tweetsInFeed };
     }
@@ -42,6 +48,7 @@ const listTweetsInFeed = async (userTag) => {
     tweetsInFeed = [...userActiveTweets.tweets, ...followingsTweets];
     tweetsInFeed.sort((a, b) => new Date(b.createTweetAt) - new Date(a.createTweetAt));
 
+    feedCache.set(userTag, tweetsInFeed);
     return { message: "Tweets retrieved successfully", tweetsInFeed };
   } catch (error) {
     return { message_error: "Failed to search tweets: " + error };

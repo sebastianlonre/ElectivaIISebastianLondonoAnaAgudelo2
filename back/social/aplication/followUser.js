@@ -3,6 +3,8 @@ const { Followings, Followers } = require("../domain/socialModel");
 const { socialValidator } = require("../domain/socialValidator");
 const { checkIfAlreadyFollowing } = require("./checkFollowing");
 
+const userCache = new Map();
+
 const followUser = async (userTag, userToFollowTag) => {
   const { validation, menssage } = socialValidator(userTag, userToFollowTag);
 
@@ -11,14 +13,24 @@ const followUser = async (userTag, userToFollowTag) => {
   }
 
   try {
-    const { message_error: messageErrorUser, user } = await findUser(userTag);
-    if (messageErrorUser) {
-      return { menssage_error: messageErrorUser };
+    let user = userCache.get(userTag);
+    if (!user) {
+      const { message_error: messageErrorUser, user: dbUser } = await findUser(userTag);
+      if (messageErrorUser) {
+        return { menssage_error: messageErrorUser };
+      }
+      user = dbUser;
+      userCache.set(userTag, user);
     }
 
-    const { message_error: messageErrorUserToFollow, user: userToFollow } = await findUser(userToFollowTag);
-    if (messageErrorUserToFollow) {
-      return { menssage_error: messageErrorUserToFollow };
+    let userToFollow = userCache.get(userToFollowTag);
+    if (!userToFollow) {
+      const { message_error: messageErrorUserToFollow, user: dbUserToFollow } = await findUser(userToFollowTag);
+      if (messageErrorUserToFollow) {
+        return { menssage_error: messageErrorUserToFollow };
+      }
+      userToFollow = dbUserToFollow;
+      userCache.set(userToFollowTag, userToFollow); 
     }
 
     const isAlreadyFollowing = await checkIfAlreadyFollowing(userTag, userToFollowTag);
