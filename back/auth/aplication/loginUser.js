@@ -2,43 +2,44 @@ const User = require("../../users/domain/userModel");
 const { validateDataForLogin } = require("./validateDataForLogin");
 const { generateToken } = require("./generateJWT");
 const { findUser } = require("../../users/infraestructure/userAdapters");
+const userCache = new Map();
 
-const loginUser = async (userData) => {
-  const { userTag, password } = userData;
+const loginUser = (userData) => {
+  return new Promise(async (resolve, reject) => {
+    const { userTag, password } = userData;
 
-  const validationResult = validateDataForLogin(userData);
-  if (validationResult) {
-    return { message_error: validationResult.menssage_error };
-  }
-
-  try {
-
-    let user = await findUser(userTag);
-
-    if (!user) {
-      return { message_error: "[ERROR] The user does not exist" };
-    }
-    console.log(user)
-
-    if (password !== user.user.password) {
-      return { message_error: "[ERROR] Incorrect password" };
+    const validationResult = validateDataForLogin(userData);
+    if (validationResult) {
+      return resolve({ message_error: validationResult.message_error });
     }
 
-    const token = generateToken({ userData });
-    const userName = user.user.userName;
-    const userLastName = user.user.userLastName;
+    try {
+      let user = userCache.get(userTag);
+      if (!user) {
+        user = await findUser(userTag);
 
-    const userInfo = {
-      userName,
-      userLastName,
-      token
+        if (!user) {
+          return resolve({ message_error: "[ERROR] The user does not exist" });
+        }
+
+        userCache.set(userTag, user);
+      }
+
+      if (password !== user.password) {
+        return resolve({ message_error: "[ERROR] Incorrect password" });
+      }
+
+      const token = generateToken({ userData });
+      const { userName, userLastName } = user;
+
+      return resolve({
+        message: "[INFO] Login successful",
+        userInfo: { userName, userLastName, token },
+      });
+    } catch (error) {
+      return reject({ message_error: "[ERROR] Login failed: " + error });
     }
-
-    return { message: "[INFO] Login successful", userInfo };
-
-  } catch (error) {
-    return { message_error: "[ERROR] Login failed: " + error };
-  }
+  });
 };
 
 module.exports = { loginUser };
