@@ -16,3 +16,12 @@ export const TweetsInFeed = async () => {
   }
 
 }
+
+export const newTweet = async ( content ) => {
+  try {
+    await api.post('/tweets', {content} );
+    return {oK: true};
+  } catch (error) {
+    return { ok: false, message: error.response?.data?.message_error };
+  }
+}

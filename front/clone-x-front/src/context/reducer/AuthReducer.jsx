@@ -14,6 +14,11 @@ export const AuthReducer = (state, action) => {
         logged: false,
         user: null
       };
+    case authTypes.refreshUser:
+      return {
+        ...state,
+        user: action.payload
+      };
     case authTypes.error:
       return {
         ...state,

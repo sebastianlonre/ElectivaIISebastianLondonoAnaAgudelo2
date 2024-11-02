@@ -19,7 +19,7 @@ export const LoginView = () => {
     if ( ok ) {
       navigate('/');
     } else {
-      setError(message || 'Credenciales incorrectas. Inténtalo de nuevo.');
+      setError(message || 'invalid credentials');
     }
   };
 
